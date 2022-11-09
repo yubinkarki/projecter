@@ -33,8 +33,6 @@ User credentials:
 - password: 22222
 ```
 
-_Created a new repo because of commit duplication issue on the old one. Lost about 100 commits._
-
 Frontend tools:
 
 > React  
