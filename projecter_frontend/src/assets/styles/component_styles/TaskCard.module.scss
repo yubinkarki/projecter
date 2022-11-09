@@ -1,0 +1,50 @@
+@import "../global_styles";
+
+.taskCardMain {
+  box-shadow: 0px 4px 10px 0px rgba(228, 228, 228, 0.75);
+}
+
+.h2 {
+  font-family: $font-inter !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: $navbar-color-primary !important;
+}
+
+.labelsDiv {
+  margin: 5% 0 !important;
+  margin-bottom: 6% !important;
+  display: flex;
+  gap: 14%;
+}
+
+.button {
+  border: none;
+  background: transparent;
+  font-family: $font-inter;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: $inactive-color;
+}
+
+.button:hover {
+  @include hover-button;
+}
+
+.footerDiv {
+  display: flex !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+.link {
+  font-size: 0.8rem !important;
+  color: $inactive-color !important;
+  font-family: $font-inter !important;
+}
+
+.taskDetails {
+  display: flex;
+  flex-direction: column !important;
+  row-gap: 1rem !important;
+}

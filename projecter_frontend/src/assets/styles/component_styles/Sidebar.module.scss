@@ -1,0 +1,80 @@
+@import "../global_styles";
+
+.wholePageBox {
+  background-color: $page-background-color;
+}
+
+.appBar {
+  background-color: $page-background-color !important;
+  color: black !important;
+  box-shadow: none !important;
+}
+
+.navBar {
+  background-color: $navbar-color-secondary;
+  min-height: 100vh;
+  color: white;
+}
+
+.badge {
+  justify-content: center;
+  background-color: $navbar-color-primary;
+}
+
+.profileImage {
+  max-width: 70px;
+  max-height: 70px;
+  border-radius: 50%;
+  border: 1px solid rgb(4, 47, 65);
+}
+
+.h1 {
+  font-family: $font-inter;
+  font-size: 1.6rem;
+  color: white;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.h2 {
+  font-family: $font-inter;
+  font-size: 1.6rem;
+  color: Black;
+  font-weight: 600;
+  margin: 5% 0 0 0;
+}
+
+.h3 {
+  font-family: $font-inter;
+  font-size: 1rem;
+  color: white;
+  font-weight: 500;
+  margin: 8% 0 20% 0;
+}
+
+.userInfo {
+  justify-content: center;
+  text-align: center;
+  margin-top: 15%;
+  display: grid !important;
+  width: auto;
+}
+
+.contentBox {
+  min-height: 100vh;
+  height: 100%;
+  max-width: 100%;
+}
+
+@media only screen and (max-width: 599px) {
+  .appBar {
+    background-color: $navbar-color-primary !important;
+    color: white !important;
+  }
+
+  .h2 {
+    color: white;
+    font-weight: 500;
+  }
+}

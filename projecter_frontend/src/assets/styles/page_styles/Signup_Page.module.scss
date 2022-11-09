@@ -1,0 +1,90 @@
+@import "../global_styles";
+
+.mainContainer {
+  height: fit-content;
+  background-image: url(../../images/home_page1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 10%;
+  margin-bottom: 12%;
+}
+
+.formHeading {
+  font-family: $font-roboto;
+  font-size: 1.5rem;
+  color: $subtitle-color;
+}
+
+.signupForm {
+  height: 90%;
+  overflow-y: scroll;
+  padding: 2%;
+  border: 1px solid rgb(236, 236, 236);
+  border-radius: 4px;
+  opacity: 0.95;
+  background-color: white;
+  box-shadow: 1px 2px 8px -1px rgba(209, 209, 209, 0.75);
+}
+
+.inputDiv {
+  margin-bottom: 10%;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  text-align: left;
+}
+
+.signupButton {
+  width: 30%;
+  height: 40px;
+  align-self: center;
+}
+
+.register {
+  margin-top: 14%;
+  margin-bottom: 0;
+  font-family: $font-inter;
+  font-size: 1rem;
+}
+
+.registerLink {
+  @include regular-link;
+}
+
+.registerLink:hover {
+  color: #1f4583;
+  @include hover-link;
+}
+
+.formErrorDiv {
+  @include form-error;
+}
+
+.buttonDiv {
+  padding-top: 10%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+// To remove the increment icons on number input.
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .signupForm {
+    margin: 0 !important;
+    height: 100%;
+  }
+}

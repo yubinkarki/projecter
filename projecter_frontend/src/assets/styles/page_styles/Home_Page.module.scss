@@ -1,0 +1,58 @@
+@import "../global_styles";
+
+.mainDiv {
+  background-image: url("../../images/home_page2.jpg");
+  background-size: 60% auto;
+  background-position: right;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  background-color: #f7f9fb;
+}
+
+.h1_top {
+  font-family: $font-montserrat;
+  font-size: 2.4rem;
+  color: $heading-color;
+  font-weight: 600;
+}
+
+.p_top {
+  font-family: $font-inter;
+  font-size: 1.2rem;
+  color: $subtitle-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link_top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link_top a {
+  @include regular-link;
+}
+
+.link_top a:hover {
+  @include hover-link;
+}
+
+.link_icon {
+  font-size: 18px;
+  margin-left: 4px;
+}
+
+@media only screen and (max-width: 899px) {
+  .mainDiv {
+    background-position: top;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .mainDiv {
+    background-image: none;
+  }
+}

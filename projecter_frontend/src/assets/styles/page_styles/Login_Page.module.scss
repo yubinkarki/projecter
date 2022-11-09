@@ -1,0 +1,75 @@
+@import "../global_styles";
+
+.mainContainer {
+  height: 100vh;
+  background-image: url(../../images/home_page1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.formHeading {
+  font-family: $font-roboto;
+  margin-bottom: 10%;
+  font-size: 1.5rem;
+  padding-top: 2%;
+  color: $subtitle-color;
+}
+
+.loginForm {
+  padding: 2%;
+  margin: 0 auto;
+  border: 1px solid rgb(236, 236, 236);
+  border-radius: 4px;
+  background-color: white;
+  opacity: 0.95;
+  box-shadow: 1px 2px 8px -1px rgba(209, 209, 209, 0.75);
+}
+
+.inputDiv {
+  margin-bottom: 10%;
+}
+
+.input {
+  width: 100%;
+}
+
+.forgotPasswordDiv {
+  padding-top: 2%;
+  margin-bottom: 8%;
+}
+
+.forgotPasswordButton {
+  @include regular-link;
+  border: none !important;
+  background-color: transparent !important;
+  cursor: pointer !important;
+}
+
+.forgotPasswordButton:hover {
+  @include hover-link;
+}
+
+.loginButton {
+  width: 30%;
+  height: 40px;
+}
+
+.register {
+  margin-top: 14%;
+  margin-bottom: 0;
+  font-family: $font-inter;
+  font-size: 1rem;
+}
+
+.registerLink {
+  @include regular-link;
+}
+
+.registerLink:hover {
+  color: #1f4583;
+  @include hover-link;
+}
+
+.formErrorDiv {
+  @include form-error;
+}
