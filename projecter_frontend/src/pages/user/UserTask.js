@@ -277,6 +277,18 @@ const UserTask = (props) => {
             setInProgress={setInProgress}
             setCompleted={setCompleted}
             searchPlaceHolder="Tasks"
+            overallCount={projectTasks.length}
+            inProgressCount={
+              projectTasks.filter(
+                (value) =>
+                  value.taskStatus === "inprogress" &&
+                  value.taskOwnerName === loggedInUser
+              ).length
+            }
+            completedCount={
+              projectTasks.filter((value) => value.taskStatus === "completed")
+                .length
+            }
           />
         </Grid>
         <Divider />

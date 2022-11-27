@@ -33,7 +33,7 @@ const ProjectMenu = (props) => {
           textUnderlineOffset: projectState === "all" && "8px",
         }}
       >
-        Overall (5)
+        Overall ({props.overallCount})
       </button>
       <button
         className={styles.button}
@@ -45,7 +45,7 @@ const ProjectMenu = (props) => {
           textUnderlineOffset: projectState === "inprogress" && "8px",
         }}
       >
-        In Progress (1)
+        In Progress ({props.inProgressCount})
       </button>
       <button
         className={styles.button}
@@ -57,7 +57,7 @@ const ProjectMenu = (props) => {
           textUnderlineOffset: projectState === "completed" && "8px",
         }}
       >
-        Completed (4)
+        Completed ({props.completedCount})
       </button>
       <form className={styles.form}>
         <div>
