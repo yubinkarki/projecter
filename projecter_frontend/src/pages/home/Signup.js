@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "../../assets/styles/page_styles/Signup_Page.module.scss";
+import { useDispatch } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { TiArrowBackOutline } from "react-icons/ti";
-import { useDispatch } from "react-redux";
 import signupAction from "../../redux/actions/SignupAction";
+import { Grid, TextField, Button, MenuItem, Select } from "@mui/material";
+import { TiArrowBackOutline } from "react-icons/ti";
+import styles from "../../assets/styles/page_styles/Signup_Page.module.scss";
 import { ToastContainer, toast } from "react-toastify";
 
 const Signup = () => {
@@ -115,6 +111,7 @@ const Signup = () => {
               style={{ fontSize: "1.5rem", marginTop: "3px" }}
             />
           </Link>
+
           <h1 className={styles.formHeading}>Create an account</h1>
         </div>
 
@@ -142,10 +139,12 @@ const Signup = () => {
                   className={styles.input}
                   onChange={handleChange("firstName")}
                 />
+
                 {errors.firstName && touched.firstName ? (
                   <div className={styles.formErrorDiv}>{errors.firstName}</div>
                 ) : null}
               </div>
+
               <div className={styles.inputDiv}>
                 <TextField
                   id="lastName"
@@ -155,10 +154,12 @@ const Signup = () => {
                   className={styles.input}
                   onChange={handleChange("lastName")}
                 />
+
                 {errors.lastName && touched.lastName ? (
                   <div className={styles.formErrorDiv}>{errors.lastName}</div>
                 ) : null}
               </div>
+
               <div className={styles.inputDiv}>
                 <TextField
                   id="email"
@@ -168,10 +169,12 @@ const Signup = () => {
                   className={styles.input}
                   onChange={handleChange("email")}
                 />
+
                 {errors.email && touched.email ? (
                   <div className={styles.formErrorDiv}>{errors.email}</div>
                 ) : null}
               </div>
+
               <div className={styles.inputDiv}>
                 <TextField
                   id="password"
@@ -181,10 +184,12 @@ const Signup = () => {
                   className={styles.input}
                   onChange={handleChange("password")}
                 />
+
                 {errors.password && touched.password ? (
                   <div className={styles.formErrorDiv}>{errors.password}</div>
                 ) : null}
               </div>
+
               <div className={styles.inputDiv}>
                 <TextField
                   id="confirmPassword"
@@ -194,12 +199,14 @@ const Signup = () => {
                   className={styles.input}
                   onChange={handleChange("confirmPassword")}
                 />
+
                 {errors.confirmPassword && touched.confirmPassword ? (
                   <div className={styles.formErrorDiv}>
                     {errors.confirmPassword}
                   </div>
                 ) : null}
               </div>
+
               <div className={styles.inputDiv}>
                 <TextField
                   id="phoneNumber"
@@ -212,12 +219,14 @@ const Signup = () => {
                     return "/[0-9]/i.test(event.key)";
                   }}
                 />
+
                 {errors.phoneNumber && touched.phoneNumber ? (
                   <div className={styles.formErrorDiv}>
                     {errors.phoneNumber}
                   </div>
                 ) : null}
               </div>
+
               <div className={styles.inputDiv}>
                 <Select
                   id="designation"
@@ -229,26 +238,35 @@ const Signup = () => {
                   <MenuItem value="Select one" disabled>
                     Choose your designation
                   </MenuItem>
+
                   <MenuItem value="Frontend Developer">
                     Frontend Developer
                   </MenuItem>
+
                   <MenuItem value="Backend Developer">
                     Backend Developer
                   </MenuItem>
+
                   <MenuItem value="Fullstack Developer">
                     Fullstack Developer
                   </MenuItem>
+
                   <MenuItem value="Finance">Finance</MenuItem>
+
                   <MenuItem value="Human Resource">Human Resource</MenuItem>
+
                   <MenuItem value="Product Designer">Product Designer</MenuItem>
+
                   <MenuItem value="Marketing">Marketing</MenuItem>
                 </Select>
+
                 {errors.designation && touched.designation ? (
                   <div className={styles.formErrorDiv}>
                     {errors.designation}
                   </div>
                 ) : null}
               </div>
+
               <div className={styles.buttonDiv}>
                 <Button
                   type="button"
@@ -258,6 +276,7 @@ const Signup = () => {
                 >
                   Signup
                 </Button>
+
                 <Button
                   type="submit"
                   variant="outlined"
@@ -270,6 +289,7 @@ const Signup = () => {
             </form>
           )}
         </Formik>
+
         <p className={styles.register}>
           Already have an account?{" "}
           <Link to="/login" className={styles.registerLink}>

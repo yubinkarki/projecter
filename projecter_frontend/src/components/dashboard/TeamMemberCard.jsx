@@ -1,14 +1,16 @@
 import React from "react";
-import styles from "../../assets/styles/component_styles/TeamMemberCard.module.scss";
-import TeamMemberCardDetails from "./TeamMemberCardDetails";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import CardActions from "@mui/material/CardActions";
 import { useNavigate } from "react-router-dom";
+import {
+  Grid,
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+  Button,
+} from "@mui/material";
+import TeamMemberCardDetails from "./TeamMemberCardDetails";
+import styles from "../../assets/styles/component_styles/TeamMemberCard.module.scss";
 
 const teamMembers = [
   {
@@ -44,6 +46,7 @@ const TeamMemberCard = () => {
             <Typography gutterBottom className={styles.h2}>
               Team Members
             </Typography>
+
             <Typography component="div" className={styles.taskDetails}>
               {teamMembers.slice(0, 3).map((item, index) => (
                 <TeamMemberCardDetails
@@ -54,6 +57,7 @@ const TeamMemberCard = () => {
               ))}
             </Typography>
           </CardContent>
+
           <CardActions className={styles.footerDiv} justify="center">
             <Button
               variant="standard"

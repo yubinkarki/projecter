@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import LoginForgotPassword from "../../components/LoginForgotPassword";
-import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "../../assets/styles/page_styles/Login_Page.module.scss";
+import { useDispatch } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { Grid, TextField, Button } from "@mui/material";
+import LoginForgotPassword from "../../components/LoginForgotPassword";
 import loginAction from "../../redux/actions/LoginAction";
-import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-
+import styles from "../../assets/styles/page_styles/Login_Page.module.scss";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
@@ -75,6 +72,7 @@ const Login = () => {
         className={styles.loginForm}
       >
         <h1 className={styles.formHeading}>Login to continue</h1>
+
         <Formik
           initialValues={{
             email: "",
@@ -94,10 +92,12 @@ const Login = () => {
                   className={styles.input}
                   onChange={handleChange("email")}
                 />
+
                 {errors.email && touched.email ? (
                   <div className={styles.formErrorDiv}>{errors.email}</div>
                 ) : null}
               </div>
+
               <div className={styles.inputDiv}>
                 <TextField
                   id="password"
@@ -107,13 +107,16 @@ const Login = () => {
                   className={styles.input}
                   onChange={handleChange("password")}
                 />
+
                 {errors.password && touched.password ? (
                   <div className={styles.formErrorDiv}>{errors.password}</div>
                 ) : null}
               </div>
+
               <div className={styles.forgotPasswordDiv}>
                 <LoginForgotPassword />
               </div>
+
               <Button
                 type="button"
                 variant="contained"
@@ -125,12 +128,14 @@ const Login = () => {
             </form>
           )}
         </Formik>
+
         <p className={styles.register}>
           Don't have an account yet?{" "}
           <Link to="/signup" className={styles.registerLink}>
             Sign Up
           </Link>
         </p>
+
         <ToastContainer position="top-right" autoClose={3000} />
       </Grid>
     </Grid>

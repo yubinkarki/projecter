@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import { Typography } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import {
+  Button,
+  Typography,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import styles from "../assets/styles/page_styles/Login_Page.module.scss";
 
 const LoginForgotPassword = () => {
@@ -48,13 +50,16 @@ const LoginForgotPassword = () => {
       >
         <Typography>Forgot your password?</Typography>
       </Button>
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Reset Password</DialogTitle>
+
         <DialogContent>
           <DialogContentText>
             To reset your password, please enter your email address here. We
             will send you a reset link to the provided email.
           </DialogContentText>
+
           <TextField
             autoFocus
             margin="dense"
@@ -73,6 +78,7 @@ const LoginForgotPassword = () => {
             helperText={isFormInvalid && "Can not be empty"}
           />
         </DialogContent>
+
         <DialogActions>
           <Button
             onClick={handleClose}
@@ -81,6 +87,7 @@ const LoginForgotPassword = () => {
           >
             Cancel
           </Button>
+
           <Button onClick={handleResetSubmit} style={{ fontSize: "14px" }}>
             Submit
           </Button>

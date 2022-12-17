@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../assets/styles/component_styles/TaskCard.module.scss";
+import {
+  Grid,
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+} from "@mui/material";
 import ProjectCardDetails from "./ProjectCardDetails";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import styles from "../../assets/styles/component_styles/TaskCard.module.scss";
 
 const projectData = [
   {
@@ -55,6 +57,7 @@ const ProjectCard = (props) => {
             <Typography gutterBottom className={styles.h2}>
               Projects
             </Typography>
+
             <Typography component="div" className={styles.labelsDiv}>
               <button
                 className={styles.button}
@@ -70,6 +73,7 @@ const ProjectCard = (props) => {
               >
                 Overall
               </button>
+
               <button
                 className={styles.button}
                 onClick={() => {
@@ -85,6 +89,7 @@ const ProjectCard = (props) => {
                 Todo
               </button>
             </Typography>
+
             <Typography component="div" className={styles.taskDetails}>
               {cardStatus === "todo"
                 ? projectData
@@ -114,6 +119,7 @@ const ProjectCard = (props) => {
                     ))}
             </Typography>
           </CardContent>
+
           <CardActions className={styles.footerDiv} justify="center">
             <Button
               variant="standard"

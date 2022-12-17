@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "../../assets/styles/component_styles/EventCardDetails.module.scss";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+import { Box, Card, CardContent } from "@mui/material";
 
 const EventCardDetails = (props) => {
   return (
@@ -11,6 +9,7 @@ const EventCardDetails = (props) => {
         <CardContent className={styles.cardContent}>
           <div>
             <h3 className={styles.h3}>Tea talk with HR Manager and CTO</h3>
+
             <h4 className={styles.h4}>12th Sep, 2022</h4>
           </div>
         </CardContent>

@@ -1,11 +1,7 @@
 import React from "react";
-import styles from "../../assets/styles/component_styles/NoticeCard.module.scss";
+import { Grid, Box, Card, CardContent, Typography } from "@mui/material";
 import NoticeCardDetails from "./NoticeCardDetails";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
+import styles from "../../assets/styles/component_styles/NoticeCard.module.scss";
 
 const NoticeCard = () => {
   return (
@@ -14,6 +10,7 @@ const NoticeCard = () => {
         <Card variant="standard" className={styles.taskCardMain}>
           <CardContent>
             <Typography className={styles.h2}>Notice</Typography>
+
             <Typography component="div" className={styles.taskDetails}>
               <NoticeCardDetails />
             </Typography>

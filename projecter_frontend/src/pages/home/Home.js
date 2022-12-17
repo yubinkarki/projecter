@@ -22,9 +22,12 @@ const Home = () => {
             Welcome to <strong>Projecter</strong> - A complete project
             management solution
           </h1>
+
           <p className={styles.p_top}>Let's get you started.</p>
+
           <p className={styles.link_top}>
             <Link to="/login">Click here</Link>
+
             <RiExternalLinkFill className={styles.link_icon} />
           </p>
         </Grid>

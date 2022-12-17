@@ -1,11 +1,7 @@
 import React from "react";
-import styles from "../../assets/styles/component_styles/EventCard.module.scss";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
+import { Grid, Box, Card, CardContent, Typography } from "@mui/material";
 import EventCardDetails from "./EventCardDetails";
+import styles from "../../assets/styles/component_styles/EventCard.module.scss";
 
 const EventCard = () => {
   const date = new Date();
@@ -30,9 +26,11 @@ const EventCard = () => {
         <Card variant="standard" className={styles.taskCardMain}>
           <CardContent>
             <Typography className={styles.h2}>Events</Typography>
+
             <Typography component="div" className={styles.labelsDiv}>
               Today's date: {todayDate}
             </Typography>
+
             <Typography component="div" className={styles.taskDetails}>
               <EventCardDetails />
             </Typography>
