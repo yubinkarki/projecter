@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, CardContent } from "@mui/material/Box";
+import { Box, Card, CardContent } from "@mui/material";
 import styles from "../../assets/styles/component_styles/NoticeCardDetails.module.scss";
 
 const NoticeCardDetails = (props) => {
