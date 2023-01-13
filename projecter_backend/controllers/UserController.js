@@ -74,7 +74,7 @@ module.exports.login = async (req, res) => {
 
     return sendToken(login, 202, res);
   } catch (err) {
-    console.log(err);
+    return res.status(401).json({ status: false, msg: "Could not login" });
   }
 };
 
@@ -138,7 +138,9 @@ module.exports.updatePassword = async (req, res) => {
       .status(200)
       .json({ status: true, msg: "Password updated successfully" });
   } catch (err) {
-    console.log(err);
+    return res
+      .status(400)
+      .json({ status: false, msg: "Could not update password", err });
   }
 };
 
