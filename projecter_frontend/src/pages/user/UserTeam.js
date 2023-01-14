@@ -1,18 +1,20 @@
 import { React, useEffect, useState } from "react";
 import profileImg from "../../assets/images/profile4.svg";
-import Grid from "@mui/material/Grid";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Toolbar from "@mui/material/Toolbar";
+import {
+  Grid,
+  AppBar,
+  Box,
+  CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+} from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomizeOutlined";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
@@ -26,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LOG_IN, USER_DATA } from "../../redux/containers/Constant";
 import clearLocalPersistAction from "../../redux/actions/ClearLocalPersistAction";
+import axios from "axios";
 
 const drawerWidth = 240;
 
@@ -74,10 +77,33 @@ const UserTeam = (props) => {
   const dispatch = useDispatch();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [teamMembers, setTeamMembers] = useState();
   const { userData } = useSelector((state) => state.login);
 
   useEffect(() => {
     document.title = "Team";
+
+    async function getTeamData() {
+      // This api call gives the logged in user info. We need projectId from this one.
+      const userData = await axios.get("http://localhost:3000/user/getone", {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
+      });
+
+      // This api call gives project data based on the id.
+      const currentProjectData = await axios.get(
+        `http://localhost:3000/project/get/${userData.data.user.currentProject}`
+      );
+
+      // This api call gives full details of many users via their respective ids.
+      const currentProjectMembers = await axios.get(
+        "http://localhost:3000/user/getmany",
+        { params: { userId: currentProjectData.data.project.projectMembers } }
+      );
+
+      console.log(currentProjectMembers);
+    }
+
+    getTeamData();
   }, []);
 
   const handleDrawerToggle = () => {
