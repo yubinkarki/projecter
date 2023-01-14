@@ -77,7 +77,7 @@ const UserTeam = (props) => {
   const dispatch = useDispatch();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [teamMembers, setTeamMembers] = useState();
+  const [teamMembers, setTeamMembers] = useState([]);
   const { userData } = useSelector((state) => state.login);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const UserTeam = (props) => {
         { params: { userId: currentProjectData.data.project.projectMembers } }
       );
 
-      console.log(currentProjectMembers);
+      setTeamMembers(currentProjectMembers.data.manyUsers);
     }
 
     getTeamData();
@@ -268,7 +268,7 @@ const UserTeam = (props) => {
       >
         <Toolbar />
         <Grid container style={{ marginBottom: "20px" }}>
-          <EnhancedTable />
+          <EnhancedTable tableData={teamMembers} />
         </Grid>
       </Box>
     </Box>
