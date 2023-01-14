@@ -14,58 +14,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { visuallyHidden } from "@mui/utils";
 
-const rows = [
-  {
-    fullName: "Kurosaki Ichigo",
-    designation: "Finance",
-    email: "kurosaki@gmail.com",
-    phoneNumber: 9848383848,
-    projects: 2,
-  },
-  {
-    fullName: "Mugiwara Luffy",
-    designation: "Fullstack Developer",
-    email: "mugiwara@gmail.com",
-    phoneNumber: 9848356848,
-    projects: 4,
-  },
-  {
-    fullName: "Captain Nepal",
-    designation: "Human Resource",
-    email: "human@gmail.com",
-    phoneNumber: 9568383848,
-    projects: 6,
-  },
-  {
-    fullName: "Bhanu Bhakta",
-    designation: "Backend Developer",
-    email: "bhanu@gmail.com",
-    phoneNumber: 9978383848,
-    projects: 1,
-  },
-  {
-    fullName: "Laxmi Dev",
-    designation: "Frontend Developer",
-    email: "laxmi@gmail.com",
-    phoneNumber: 9908365848,
-    projects: 3,
-  },
-  {
-    fullName: "Hiro Shima",
-    designation: "Product Designer",
-    email: "hiro@outlook.com",
-    phoneNumber: 9008375848,
-    projects: 3,
-  },
-  {
-    fullName: "Naga Siren",
-    designation: "Marketing",
-    email: "naga@yahoo.com",
-    phoneNumber: 9008398748,
-    projects: 5,
-  },
-];
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -83,15 +31,19 @@ function getComparator(order, orderBy) {
 }
 
 function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
+  const stabilizedThis = array?.map((el, index) => [el, index]);
+
+  stabilizedThis?.sort((a, b) => {
     const order = comparator(a[0], b[0]);
+
     if (order !== 0) {
       return order;
     }
+
     return a[1] - b[1];
   });
-  return stabilizedThis.map((el) => el[0]);
+
+  return stabilizedThis?.map((el) => el[0]);
 }
 
 const headCells = [
@@ -126,12 +78,10 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox" />
+        <TableCell />
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={"center"}
-            padding={"normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -162,7 +112,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
+export default function EnhancedTable({ tableData }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -174,35 +124,6 @@ export default function EnhancedTable() {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -218,11 +139,9 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableData?.length) : 0;
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -237,41 +156,25 @@ export default function EnhancedTable() {
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={tableData?.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(tableData, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.email}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox" />
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                        align="center"
-                      >
-                        {row.fullName}
+                    <TableRow hover tabIndex={-1} key={row.email}>
+                      <TableCell />
+                      <TableCell id={labelId}>
+                        {row?.firstName} {row?.lastName}
                       </TableCell>
-                      <TableCell align="center">{row.designation}</TableCell>
-                      <TableCell align="center">{row.email}</TableCell>
-                      <TableCell align="center">{row.phoneNumber}</TableCell>
-                      <TableCell align="center">{row.projects}</TableCell>
+                      <TableCell>{row?.designation}</TableCell>
+                      <TableCell>{row?.email}</TableCell>
+                      <TableCell>{row?.phoneNumber}</TableCell>
+                      <TableCell>{row?.previousProject?.length}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -287,16 +190,18 @@ export default function EnhancedTable() {
             </TableBody>
           </Table>
         </TableContainer>
+
         <TablePagination
           rowsPerPageOptions={[5, 10]}
           component="div"
-          count={rows.length}
+          count={tableData?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
+
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
