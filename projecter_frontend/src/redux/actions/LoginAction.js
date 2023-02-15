@@ -16,7 +16,7 @@ const loginAction = (credentials) => async (dispatch) => {
     });
 
     const userData = {
-      role: user.data.user.role,
+      role: user?.data?.user?.role,
     };
 
     sessionStorage.setItem("user", JSON.stringify(userData));
@@ -24,9 +24,9 @@ const loginAction = (credentials) => async (dispatch) => {
     await dispatch({ type: LOG_IN, payload: response.data }); // response.data has {status and token}.
     await dispatch({ type: USER_DATA, payload: user.data.user });
   } catch (err) {
-    if (err.response.data.msg === "Could not find email") {
+    if (err?.response?.data?.msg === "Could not find email") {
       toast.error("Invalid email address");
-    } else if (err.response.data.msg === "Incorrect password") {
+    } else if (err?.response?.data?.msg === "Incorrect password") {
       toast.error("Incorrect password");
     }
   }
