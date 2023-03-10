@@ -9,6 +9,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+
 import TeamMemberCardDetails from "./TeamMemberCardDetails";
 import styles from "../../assets/styles/component_styles/TeamMemberCard.module.scss";
 

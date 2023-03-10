@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import Grid from "@mui/material/Grid";
-import styles from "../../assets/styles/page_styles/Home_Page.module.scss";
 import { Link } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 import { RiExternalLinkFill } from "react-icons/ri";
+
+import styles from "../../assets/styles/page_styles/Home_Page.module.scss";
 
 const Home = () => {
   useEffect(() => {

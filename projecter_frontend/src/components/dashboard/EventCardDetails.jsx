@@ -1,6 +1,7 @@
 import React from "react";
-import styles from "../../assets/styles/component_styles/EventCardDetails.module.scss";
 import { Box, Card, CardContent } from "@mui/material";
+
+import styles from "../../assets/styles/component_styles/EventCardDetails.module.scss";
 
 const EventCardDetails = (props) => {
   return (

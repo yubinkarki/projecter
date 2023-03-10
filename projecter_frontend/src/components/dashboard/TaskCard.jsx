@@ -9,6 +9,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+
 import TaskCardDetails from "./TaskCardDetails";
 import styles from "../../assets/styles/component_styles/TaskCard.module.scss";
 

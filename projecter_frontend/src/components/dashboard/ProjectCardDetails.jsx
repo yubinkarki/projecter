@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Card, CardContent } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+
 import styles from "../../assets/styles/component_styles/TaskCardDetails.module.scss";
 
 const ProjectCardDetails = (props) => {

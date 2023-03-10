@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, Box, Card, CardContent, Typography } from "@mui/material";
+
 import NoticeCardDetails from "./NoticeCardDetails";
 import styles from "../../assets/styles/component_styles/NoticeCard.module.scss";
 

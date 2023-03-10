@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Card, CardContent } from "@mui/material";
+
 import user1 from "../../assets/images/users/user1.png";
 import styles from "../../assets/styles/component_styles/TeamMemberCardDetails.module.scss";
 

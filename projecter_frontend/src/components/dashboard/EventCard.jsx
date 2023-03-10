@@ -1,11 +1,13 @@
 import React from "react";
 import { Grid, Box, Card, CardContent, Typography } from "@mui/material";
+
 import EventCardDetails from "./EventCardDetails";
 import styles from "../../assets/styles/component_styles/EventCard.module.scss";
 
 const EventCard = () => {
   const date = new Date();
   let resultingDate = [("0" + date.getDate()).slice(-2)];
+
   let todayDate =
     date.getFullYear().toString() +
     "-" +
@@ -15,8 +17,11 @@ const EventCard = () => {
 
   for (let i = 1; i <= 5; i++) {
     let result = date.setDate(date.getDate() + 1); // Get tomorrow's date of the next 5 days.
+
     result = new Date(result).getDate();
+
     let newResult = ("0" + result).slice(-2); // Add 0 to single digit date.
+
     resultingDate.push(newResult);
   }
 
