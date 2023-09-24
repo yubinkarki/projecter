@@ -2,9 +2,9 @@
   "name": "projecter_backend",
   "version": "1.0.0",
   "description": "Backend system for Projecter.",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon"
   },
   "author": "Yubin Karki",
   "license": "ISC",
