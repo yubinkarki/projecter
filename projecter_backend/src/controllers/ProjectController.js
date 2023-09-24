@@ -1,4 +1,4 @@
-const projectModel = require("../models/ProjectModel");
+const projectModel = require("../src/models/ProjectModel");
 const _ = require("lodash");
 
 // Create new project - by admin.

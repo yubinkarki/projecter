@@ -2,7 +2,7 @@ const _ = require("lodash");
 const bcrypt = require("bcrypt");
 
 // Importing custom modules.
-const userModel = require("../models/UserModel"); // User database model.
+const userModel = require("../src/models/UserModel"); // User database model.
 const sendToken = require("../utils/UserToken"); // Create JWT token function.
 
 // Get all users.

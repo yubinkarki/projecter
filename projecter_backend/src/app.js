@@ -17,9 +17,9 @@ require("./database/Connection");
 app.use(cors());
 
 // Routes.
-app.use("/user", require("./routes/UserRoutes"));
-app.use("/project", require("./routes/ProjectRoutes"));
-app.use("/task", require("./routes/TaskRoutes"));
+app.use("/user", require("../routes/UserRoutes"));
+app.use("/project", require("../routes/ProjectRoutes"));
+app.use("/task", require("../routes/TaskRoutes"));
 
 // Start development server.
 try {
