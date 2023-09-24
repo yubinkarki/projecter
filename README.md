@@ -21,8 +21,8 @@ Steps to start the application:
 ```
 DB = "mongodb+srv://guest:12345@projecter.vt3wa4s.mongodb.net/main?retryWrites=true&w=majority"
 PORT = 3000
-JWT_KEY = fjkerherfui35euifd8932DJFELFH43EFERJKJEH
-JWT_EXPIRE = 10d
+JWT_KEY = at-least-32-character-ultra-secure-secret-key
+JWT_EXPIRE = 90d
 ```
 
 - Run `npm start` inside both folders and start exploring. The shared database is read only.
