@@ -1,6 +1,6 @@
 const _ = require("lodash");
-const taskModel = require("../src/models/TaskModel");
-const projectModel = require("../src/models/ProjectModel");
+const taskModel = require("../models/TaskModel");
+const projectModel = require("../models/ProjectModel");
 
 // Create task.
 module.exports.createTask = async (req, res) => {
