@@ -1,18 +1,10 @@
-import {
-  create,
-  findByIdAndUpdate,
-  findByIdAndDelete,
-  findById,
-  find,
-  findOne,
-  updateOne,
-} from "../models/ProjectModel";
-import { pick } from "lodash";
+const projectModel = require("../models/ProjectModel");
+const _ = require("lodash");
 
 // Create new project - by admin.
-export async function addProject(req, res) {
+module.exports.addProject = async (req, res) => {
   try {
-    let projectData = pick(req.body, [
+    let projectData = _.pick(req.body, [
       "projectName",
       "projectDescription",
       "projectStatus",
@@ -21,7 +13,7 @@ export async function addProject(req, res) {
     ]);
 
     req.body.projectManager = req.body.id;
-    await create(projectData);
+    await projectModel.create(projectData);
 
     return res.status(202).json({
       status: true,
@@ -33,14 +25,18 @@ export async function addProject(req, res) {
       msg: "Project creation failed",
     });
   }
-}
+};
 
 // Update project details - by admin and pm.
-export async function updateProject(req, res) {
+module.exports.updateProject = async (req, res) => {
   try {
-    const project = await findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const project = await projectModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
 
     if (!project) {
       return res
@@ -56,12 +52,12 @@ export async function updateProject(req, res) {
       .status(500)
       .json({ status: false, msg: "Updating project failed" });
   }
-}
+};
 
 // Delete project - by admin.
-export async function deleteProject(req, res) {
+module.exports.deleteProject = async (req, res) => {
   try {
-    const project = await findByIdAndDelete(req.params.id);
+    const project = await projectModel.findByIdAndDelete(req.params.id);
 
     if (!project) {
       return res.status(404).json({ notFound: true, msg: "Project not found" });
@@ -75,12 +71,12 @@ export async function deleteProject(req, res) {
       .status(500)
       .json({ status: false, msg: "Project deletion failed" });
   }
-}
+};
 
 // Get one project by it's id - by admin and pm.
-export async function getOneProject(req, res) {
+module.exports.getOneProject = async (req, res) => {
   try {
-    const project = await findById(req.params.id);
+    const project = await projectModel.findById(req.params.id);
 
     if (!project) {
       return res
@@ -94,14 +90,14 @@ export async function getOneProject(req, res) {
   } catch (err) {
     res.status(504).json({ status: false, msg: "Error getting the project" });
   }
-}
+};
 
 // Get multiple projects with their ObjectId for user/project page.
-export async function getManyProjects(req, res) {
+module.exports.getManyProjects = async (req, res) => {
   const projectId = req.query.projectId;
 
   try {
-    const manyProjects = await find({
+    const manyProjects = await projectModel.find({
       _id: {
         $in: projectId,
       },
@@ -113,12 +109,12 @@ export async function getManyProjects(req, res) {
   } catch (err) {
     res.status(504).json({ status: false, msg: "Error getting the projects" });
   }
-}
+};
 
 // Get all projects in the database - by admin.
-export async function getAllProjects(req, res) {
+module.exports.getAllProjects = async (req, res) => {
   try {
-    const projects = await find();
+    const projects = await projectModel.find();
 
     if (projects.length > 0) return res.json({ status: true, projects });
 
@@ -130,13 +126,13 @@ export async function getAllProjects(req, res) {
       .status(400)
       .json({ status: false, msg: "Error getting projects" });
   }
-}
+};
 
 // Add users to a project.
-export async function addProjectMember(req, res) {
+module.exports.addProjectMember = async (req, res) => {
   try {
     const { userId, projectId } = req.body;
-    const checkExistingMember = await findOne({ projectId });
+    const checkExistingMember = await projectModel.findOne({ projectId });
     let checkUser;
 
     checkExistingMember.projectMembers.map((item) => {
@@ -149,7 +145,7 @@ export async function addProjectMember(req, res) {
     if (checkUser === false) {
       return res.json({ status: false, msg: "User is already in a project" });
     } else {
-      await updateOne({ $push: { projectMembers: userId } });
+      await projectModel.updateOne({ $push: { projectMembers: userId } });
       return res
         .status(200)
         .json({ status: true, msg: "User added to project" });
@@ -159,4 +155,4 @@ export async function addProjectMember(req, res) {
       .status(500)
       .json({ status: false, msg: "Error adding user to project" });
   }
-}
+};

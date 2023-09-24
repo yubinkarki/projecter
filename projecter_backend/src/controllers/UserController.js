@@ -1,44 +1,37 @@
-import { pick } from "lodash";
-import { compare } from "bcrypt";
+const _ = require("lodash");
+const bcrypt = require("bcrypt");
 
 // Importing custom modules.
-import {
-  find,
-  findById,
-  create,
-  findOne,
-  findByIdAndRemove,
-  findByIdAndUpdate,
-} from "../models/UserModel";
-import sendToken from "../utils/UserToken";
+const userModel = require("../models/UserModel"); // User database model.
+const sendToken = require("../utils/UserToken"); // Create JWT token function.
 
 // Get all users.
-export async function getAllUsers(req, res) {
+module.exports.getAllUsers = async (req, res) => {
   try {
-    const users = await find();
+    const users = await userModel.find();
     if (users.length > 0) return res.json({ status: true, users });
     return res.status(404).json({ emptyUser: true, msg: "Users not found" });
   } catch (err) {
     return res.status(400).json({ status: false, msg: "Error getting users" });
   }
-}
+};
 
 // Get one user by id. Currently logged in user via token.
-export async function getOneUser(req, res) {
+module.exports.getOneUser = async (req, res) => {
   try {
-    const user = await findById(req.user.id);
+    const user = await userModel.findById(req.user.id);
 
     if (user) return res.json({ status: true, user });
     return res.status(404).json({ noUser: true, msg: "User not found" });
   } catch (err) {
     return res.status(400).json({ status: false, msg: "Error getting user" });
   }
-}
+};
 
 // Create user.
-export async function signup(req, res) {
+module.exports.signup = async (req, res) => {
   try {
-    let userData = pick(req.body, [
+    let userData = _.pick(req.body, [
       "firstName",
       "lastName",
       "email",
@@ -47,7 +40,7 @@ export async function signup(req, res) {
       "designation",
     ]);
 
-    await create(userData);
+    await userModel.create(userData);
 
     return res
       .status(201)
@@ -63,18 +56,18 @@ export async function signup(req, res) {
       res.status(400).json({ status: false, msg: "Error in creating user" });
     }
   }
-}
+};
 
 // Login user.
-export async function login(req, res) {
+module.exports.login = async (req, res) => {
   const { email, password } = req.body;
-  const login = await findOne({ email }).select("+password");
+  const login = await userModel.findOne({ email }).select("+password");
 
   try {
     if (!login)
       res.status(404).json({ emailError: true, msg: "Could not find email" });
 
-    const verify = await compare(password, login.password);
+    const verify = await bcrypt.compare(password, login.password);
 
     if (!verify)
       res.status(401).json({ passwordError: true, msg: "Incorrect password" });
@@ -83,12 +76,12 @@ export async function login(req, res) {
   } catch (err) {
     return res.status(401).json({ status: false, msg: "Could not login" });
   }
-}
+};
 
 // Delete user by id.
-export async function deleteOneUser(req, res) {
+module.exports.deleteOneUser = async (req, res) => {
   try {
-    const user = await findByIdAndRemove(req.params.id);
+    const user = await userModel.findByIdAndRemove(req.params.id);
 
     if (!user)
       return res.status(404).json({ noUser: true, msg: "User not found" });
@@ -99,12 +92,12 @@ export async function deleteOneUser(req, res) {
   } catch (err) {
     return res.status(400).json({ status: false, msg: "Error deleting user" });
   }
-}
+};
 
 // Update user details.
-export async function updateUser(req, res) {
+module.exports.updateUser = async (req, res) => {
   try {
-    const user = await findByIdAndUpdate(req.user.id, req.body, {
+    const user = await userModel.findByIdAndUpdate(req.user.id, req.body, {
       new: true,
     });
 
@@ -117,12 +110,12 @@ export async function updateUser(req, res) {
       .status(404)
       .json({ status: false, msg: "Error updating users", err });
   }
-}
+};
 
 // Update user password.
-export async function updatePassword(req, res) {
+module.exports.updatePassword = async (req, res) => {
   try {
-    const user = await findById(req.user.id).select("+password");
+    const user = await userModel.findById(req.user.id).select("+password");
     const passwordMatch = await user.comparePassword(req.body.currentPassword);
 
     if (!passwordMatch) {
@@ -149,12 +142,12 @@ export async function updatePassword(req, res) {
       .status(400)
       .json({ status: false, msg: "Could not update password", err });
   }
-}
+};
 
 // Get one user by it's id. To fetch pm details on user/task page.
-export async function getOneUserById(req, res) {
+module.exports.getOneUserById = async (req, res) => {
   try {
-    const userData = await findById(req.params.id);
+    const userData = await userModel.findById(req.params.id);
 
     if (!userData) {
       return res.status(404).json({ noUser: true, msg: "User not found" });
@@ -164,14 +157,14 @@ export async function getOneUserById(req, res) {
   } catch (err) {
     return res.status(404).json({ status: false, msg: "User not found", err });
   }
-}
+};
 
 // Get multiple user data with their ObjectId for user/task page.
-export async function getManyUsers(req, res) {
+module.exports.getManyUsers = async (req, res) => {
   const userId = req.query.userId;
 
   try {
-    const manyUsers = await find({
+    const manyUsers = await userModel.find({
       _id: {
         $in: userId,
       },
@@ -183,4 +176,4 @@ export async function getManyUsers(req, res) {
   } catch (err) {
     res.status(504).json({ status: false, msg: "Error getting users" });
   }
-}
+};

@@ -1,18 +1,12 @@
-import { pick } from "lodash";
-
-import {
-  create,
-  find,
-  findById as findTaskById,
-  findByIdAndUpdate,
-} from "../models/TaskModel";
-import { findById as findProjectById } from "../models/ProjectModel";
+const _ = require("lodash");
+const taskModel = require("../models/TaskModel");
+const projectModel = require("../models/ProjectModel");
 
 // Create task.
-export async function createTask(req, res) {
+module.exports.createTask = async (req, res) => {
   try {
-    const task = await create(
-      pick(req.body, ["taskName", "taskDeadline", "taskOwner", "taskProject"])
+    const task = await taskModel.create(
+      _.pick(req.body, ["taskName", "taskDeadline", "taskOwner", "taskProject"])
     );
 
     return res
@@ -24,10 +18,10 @@ export async function createTask(req, res) {
       .status(500)
       .json({ status: false, msg: "Could not create task" });
   }
-}
+};
 
 // Get all tasks - admin.
-export async function getAllTasks(req, res) {
+module.exports.getAllTasks = async (req, res) => {
   try {
     let condition = {};
     let tasks = [];
@@ -35,9 +29,9 @@ export async function getAllTasks(req, res) {
     // const role = UserModel.findById(id).populate({ path: "role" });
 
     if (role == "user" || role == "pm") {
-      tasks = await find({ taskOwner: id, ...condition });
+      tasks = await taskModel.find({ taskOwner: id, ...condition });
     } else {
-      tasks = await find({ condition });
+      tasks = await taskModel.find({ condition });
     }
 
     if (tasks.length > 0) {
@@ -54,12 +48,12 @@ export async function getAllTasks(req, res) {
       .status(500)
       .json({ status: false, msg: "Error getting all tasks" });
   }
-}
+};
 
 // Get one task by it's id.
-export async function getOneTask(req, res) {
+module.exports.getOneTask = async (req, res) => {
   try {
-    const task = await findTaskById(req.params.id);
+    const task = await taskModel.findById(req.params.id);
 
     if (!task)
       return res.status(400).json({ noTask: true, msg: "No tasks found" });
@@ -69,14 +63,14 @@ export async function getOneTask(req, res) {
   } catch (err) {
     return res.status(500).json({ status: false, msg: "Error getting task" });
   }
-}
+};
 
 // Change task status - by user.
-export async function changeTaskStatus(req, res) {
+module.exports.changeTaskStatus = async (req, res) => {
   try {
     const { status } = req.body;
 
-    const changedStatus = await findByIdAndUpdate(
+    const changedStatus = await taskModel.findByIdAndUpdate(
       req.params.id,
       { taskStatus: status },
       { new: true }
@@ -95,14 +89,14 @@ export async function changeTaskStatus(req, res) {
       .status(400)
       .json({ status: false, msg: "Error changing task status" });
   }
-}
+};
 
 // Get task id array by user's current project id.
-export async function getUserCurrentTasks(req, res) {
+module.exports.getUserCurrentTasks = async (req, res) => {
   try {
-    const userCurrentTasks = await findProjectById(req.query.projectId).then(
-      (res) => res.projectTasks
-    );
+    const userCurrentTasks = await projectModel
+      .findById(req.query.projectId)
+      .then((res) => res.projectTasks);
 
     const currentTaskId = [];
 
@@ -120,14 +114,14 @@ export async function getUserCurrentTasks(req, res) {
       .status(400)
       .json({ status: false, msg: "Error getting tasks id" });
   }
-}
+};
 
 // Get many task details by task id.
-export async function getManyTasks(req, res) {
+module.exports.getManyTasks = async (req, res) => {
   const projectTasksId = req.query.taskId;
 
   try {
-    const manyTasks = await find({
+    const manyTasks = await taskModel.find({
       _id: {
         $in: projectTasksId,
       },
@@ -139,4 +133,4 @@ export async function getManyTasks(req, res) {
   } catch (err) {
     return res.status(400).json({ status: false, msg: "Error getting tasks" });
   }
-}
+};
