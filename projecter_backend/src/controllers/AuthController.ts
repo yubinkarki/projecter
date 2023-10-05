@@ -6,7 +6,7 @@ const userModel = require("../models/UserModel"); // User database model.
 const sendToken = require("../utils/UserToken"); // Create JWT token function.
 
 // Create user.
-module.exports.signup = async (req, res) => {
+export const signup = async (req, res) => {
   try {
     let userData = _.pick(req.body, [
       "firstName",
@@ -36,7 +36,7 @@ module.exports.signup = async (req, res) => {
 };
 
 // Login user.
-module.exports.login = async (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
   const login = await userModel.findOne({ email }).select("+password");
 
