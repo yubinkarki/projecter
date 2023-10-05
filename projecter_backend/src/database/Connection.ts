@@ -12,7 +12,7 @@ mongoose
   .then(() => {
     console.log(db_connection_success);
   })
-  .catch((err) => {
+  .catch((err: Error) => {
     console.log(db_connection_fail, err);
   });
 
