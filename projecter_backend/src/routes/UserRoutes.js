@@ -2,7 +2,6 @@ const router = require("express").Router();
 
 const { authentication } = require("../utils/Auth");
 
-// Destructuring functions from controller.
 const {
   getAllUsers,
   signup,
@@ -15,7 +14,6 @@ const {
   getManyUsers,
 } = require("../controllers/UserController");
 
-// Defining api routes.
 router.post("/signup", signup);
 router.post("/login", login);
 router.get("/getone", [authentication], getOneUser);

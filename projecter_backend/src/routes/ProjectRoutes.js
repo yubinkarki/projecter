@@ -1,7 +1,5 @@
 const router = require("express").Router();
 
-const { authentication } = require("../utils/Auth");
-
 const {
   addProject,
   updateProject,
@@ -12,7 +10,6 @@ const {
   getManyProjects,
 } = require("../controllers/ProjectController");
 
-// Defining api routes.
 router.get("/get/:id", getOneProject);
 router.get("/getall", getAllProjects);
 router.get("/getmany", getManyProjects);
