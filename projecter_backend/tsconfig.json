@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "pretty": true,
+    "target": "ES6",
+    "rootDir": "./",
+    "outDir": "./dist",
+    "module": "commonjs",
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noImplicitThis": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "noUnusedParameters": true,
+    "strictFunctionTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "tests"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
+}
