@@ -18,8 +18,9 @@ app.use(cors());
 
 // Routes.
 app.use("/user", require("./routes/UserRoutes"));
-app.use("/project", require("./routes/ProjectRoutes"));
 app.use("/task", require("./routes/TaskRoutes"));
+app.use("/auth", require("./routes/AuthRoutes"));
+app.use("/project", require("./routes/ProjectRoutes"));
 
 // Start development server.
 try {
