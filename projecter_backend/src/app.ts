@@ -1,8 +1,9 @@
-const express = require("express");
-const cors = require("cors");
+import cors from "cors";
+import express from "express";
+import dotenv from 'dotenv';
 
 // Loads the contents of .env file into process.env to use it.
-require("dotenv").config();
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 8545;
