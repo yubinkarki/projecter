@@ -1,12 +1,14 @@
 import cors from "cors";
-import express from "express";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+import express, { Express } from "express";
+
+import authRoutes from "@/routes/AuthRoutes";
 
 // Loads the contents of .env file into process.env to use it.
 dotenv.config();
 
-const app = express();
-const port = process.env.PORT || 8545;
+const app: Express = express();
+const port: String = process.env.PORT || "8545";
 
 // Built in middleware function in express. https://expressjs.com/en/api.html
 app.use(express.json());
@@ -20,7 +22,7 @@ app.use(cors());
 // Routes.
 app.use("/user", require("./routes/UserRoutes"));
 app.use("/task", require("./routes/TaskRoutes"));
-app.use("/auth", require("./routes/AuthRoutes"));
+app.use("/auth", authRoutes);
 app.use("/project", require("./routes/ProjectRoutes"));
 
 // Start development server.
