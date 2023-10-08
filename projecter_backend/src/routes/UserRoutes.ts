@@ -1,8 +1,6 @@
-const router = require("express").Router();
+import { Router } from "express";
 
-const { authentication } = require("../utils/Auth");
-
-const {
+import {
   getAllUsers,
   signup,
   login,
@@ -12,16 +10,19 @@ const {
   updatePassword,
   getOneUserById,
   getManyUsers,
-} = require("../controllers/UserController");
+} from "@/controllers/UserController";
+import authentication from "@/utils/Auth";
 
-router.post("/signup", signup);
+const router: Router = Router();
+
 router.post("/login", login);
-router.get("/getone", [authentication], getOneUser);
-router.get("/getoneuser/:id", getOneUserById);
-router.get("/getmany", getManyUsers);
+router.post("/signup", signup);
 router.get("/getall", getAllUsers);
+router.get("/getmany", getManyUsers);
 router.delete("/delete/:id", deleteOneUser);
+router.get("/getoneuser/:id", getOneUserById);
+router.get("/getone", [authentication], getOneUser);
 router.put("/update", [authentication], updateUser);
 router.put("/password/update", [authentication], updatePassword);
 
-module.exports = router;
+export default router;
