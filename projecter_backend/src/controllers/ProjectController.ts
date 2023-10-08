@@ -2,7 +2,7 @@ const projectModel = require("../models/ProjectModel");
 const _ = require("lodash");
 
 // Create new project - by admin.
-module.exports.addProject = async (req, res) => {
+export const addProject = async (req, res) => {
   try {
     let projectData = _.pick(req.body, [
       "projectName",
@@ -28,7 +28,7 @@ module.exports.addProject = async (req, res) => {
 };
 
 // Update project details - by admin and pm.
-module.exports.updateProject = async (req, res) => {
+export const updateProject = async (req, res) => {
   try {
     const project = await projectModel.findByIdAndUpdate(
       req.params.id,
@@ -55,7 +55,7 @@ module.exports.updateProject = async (req, res) => {
 };
 
 // Delete project - by admin.
-module.exports.deleteProject = async (req, res) => {
+export const deleteProject = async (req, res) => {
   try {
     const project = await projectModel.findByIdAndDelete(req.params.id);
 
@@ -74,7 +74,7 @@ module.exports.deleteProject = async (req, res) => {
 };
 
 // Get one project by it's id - by admin and pm.
-module.exports.getOneProject = async (req, res) => {
+export const getOneProject = async (req, res) => {
   try {
     const project = await projectModel.findById(req.params.id);
 
@@ -93,7 +93,7 @@ module.exports.getOneProject = async (req, res) => {
 };
 
 // Get multiple projects with their ObjectId for user/project page.
-module.exports.getManyProjects = async (req, res) => {
+export const getManyProjects = async (req, res) => {
   const projectId = req.query.projectId;
 
   try {
@@ -112,7 +112,7 @@ module.exports.getManyProjects = async (req, res) => {
 };
 
 // Get all projects in the database - by admin.
-module.exports.getAllProjects = async (req, res) => {
+export const getAllProjects = async (req, res) => {
   try {
     const projects = await projectModel.find();
 
@@ -129,7 +129,7 @@ module.exports.getAllProjects = async (req, res) => {
 };
 
 // Add users to a project.
-module.exports.addProjectMember = async (req, res) => {
+export const addProjectMember = async (req, res) => {
   try {
     const { userId, projectId } = req.body;
     const checkExistingMember = await projectModel.findOne({ projectId });

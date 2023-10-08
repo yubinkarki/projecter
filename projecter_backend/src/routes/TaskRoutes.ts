@@ -1,14 +1,16 @@
-const router = require("express").Router();
-const { authentication } = require("../utils/Auth");
+import { Router } from "express";
 
-const {
+import {
   getAllTasks,
   createTask,
   getOneTask,
   changeTaskStatus,
   getManyTasks,
   getUserCurrentTasks,
-} = require("../controllers/TaskController");
+} from "@/controllers/TaskController";
+import authentication from "@/utils/Auth";
+
+const router: Router = Router();
 
 router.get("/getone/:id", [authentication], getOneTask);
 router.get("/getall", [authentication], getAllTasks);
@@ -17,4 +19,4 @@ router.get("/getusertasks", getUserCurrentTasks);
 router.post("/create", createTask);
 router.put("/changetaskstatus/:id", changeTaskStatus);
 
-module.exports = router;
+export default router;

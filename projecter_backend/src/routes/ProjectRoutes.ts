@@ -1,6 +1,6 @@
-const router = require("express").Router();
+import { Router } from "express";
 
-const {
+import {
   addProject,
   updateProject,
   deleteProject,
@@ -8,7 +8,9 @@ const {
   getAllProjects,
   addProjectMember,
   getManyProjects,
-} = require("../controllers/ProjectController");
+} from "@/controllers/ProjectController";
+
+const router: Router = Router();
 
 router.get("/get/:id", getOneProject);
 router.get("/getall", getAllProjects);
@@ -18,4 +20,4 @@ router.post("/addmember", addProjectMember);
 router.put("/update/:id", updateProject);
 router.delete("/delete/:id", deleteProject);
 
-module.exports = router;
+export default router;

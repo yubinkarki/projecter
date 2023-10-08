@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
-module.exports.authentication = (req, res, next) => {
+const authentication = (req, res, next) => {
   const tokenHeader = req.headers.authorization; // Gets -> Bearer token
 
   if (tokenHeader) {
@@ -15,8 +15,8 @@ module.exports.authentication = (req, res, next) => {
       return res.status(400).json({ status: false, msg: "Invalid token" });
     }
   } else {
-    return res
-      .status(400)
-      .json({ status: false, msg: "Please send bearer token" });
+    return res.status(400).json({ status: false, msg: "Please send bearer token" });
   }
 };
+
+export default authentication;

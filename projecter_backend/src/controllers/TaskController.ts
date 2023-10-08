@@ -3,7 +3,7 @@ const taskModel = require("../models/TaskModel");
 const projectModel = require("../models/ProjectModel");
 
 // Create task.
-module.exports.createTask = async (req, res) => {
+export const createTask = async (req, res) => {
   try {
     const task = await taskModel.create(
       _.pick(req.body, ["taskName", "taskDeadline", "taskOwner", "taskProject"])
@@ -21,7 +21,7 @@ module.exports.createTask = async (req, res) => {
 };
 
 // Get all tasks - admin.
-module.exports.getAllTasks = async (req, res) => {
+export const getAllTasks = async (req, res) => {
   try {
     let condition = {};
     let tasks = [];
@@ -51,7 +51,7 @@ module.exports.getAllTasks = async (req, res) => {
 };
 
 // Get one task by it's id.
-module.exports.getOneTask = async (req, res) => {
+export const getOneTask = async (req, res) => {
   try {
     const task = await taskModel.findById(req.params.id);
 
@@ -66,7 +66,7 @@ module.exports.getOneTask = async (req, res) => {
 };
 
 // Change task status - by user.
-module.exports.changeTaskStatus = async (req, res) => {
+export const changeTaskStatus = async (req, res) => {
   try {
     const { status } = req.body;
 
@@ -92,7 +92,7 @@ module.exports.changeTaskStatus = async (req, res) => {
 };
 
 // Get task id array by user's current project id.
-module.exports.getUserCurrentTasks = async (req, res) => {
+export const getUserCurrentTasks = async (req, res) => {
   try {
     const userCurrentTasks = await projectModel
       .findById(req.query.projectId)
@@ -117,7 +117,7 @@ module.exports.getUserCurrentTasks = async (req, res) => {
 };
 
 // Get many task details by task id.
-module.exports.getManyTasks = async (req, res) => {
+export const getManyTasks = async (req, res) => {
   const projectTasksId = req.query.taskId;
 
   try {
