@@ -1,2 +1,9 @@
-export const db_connection_success: String = "Connected to database successfully";
-export const db_connection_fail: String = "Connected to database failed";
+export const stagEnv: string = "staging";
+export const devEnv: string = "development";
+export const fallback_port: string = "8545";
+export const cannot_find_env: string = "Cannot find .env file";
+export const cannot_find_db_url: string = "Cannot find DB Url";
+export const server_start_failure: string = "Failed to start server";
+export const db_connection_fail: string = "Connected to database failed";
+export const server_start_success: string = "Server successfully started";
+export const db_connection_success: string = "Connected to database successfully";
