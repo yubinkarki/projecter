@@ -2,8 +2,8 @@ import cors from "cors";
 import express, { Express } from "express";
 
 import config from "@/config/EnvConfig";
-import authRoutes from "@/routes/AuthRoutes";
 import { connectToDb } from "@/database/Connection";
+import { authRoutes, projectRoutes, taskRoutes, userRoutes } from "@/routes";
 import { server_start_success, server_start_failure } from "@/constants/AppStrings";
 
 const app: Express = express();
@@ -16,10 +16,10 @@ connectToDb();
 
 app.use(cors());
 
-app.use("/user", require("./routes/UserRoutes"));
-app.use("/task", require("./routes/TaskRoutes"));
+app.use("/user", userRoutes);
+app.use("/task", taskRoutes);
 app.use("/auth", authRoutes);
-app.use("/project", require("./routes/ProjectRoutes"));
+app.use("/project", projectRoutes);
 
 try {
   app.listen(config.port, () => console.log(`${server_start_success} at port ${config.port}`));

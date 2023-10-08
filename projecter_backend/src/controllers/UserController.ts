@@ -6,7 +6,7 @@ const userModel = require("../models/UserModel"); // User database model.
 const sendToken = require("../utils/UserToken"); // Create JWT token function.
 
 // Get all users.
-module.exports.getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res) => {
   try {
     const users = await userModel.find();
     if (users.length > 0) return res.json({ status: true, users });
@@ -17,7 +17,7 @@ module.exports.getAllUsers = async (req, res) => {
 };
 
 // Get one user by id. Currently logged in user via token.
-module.exports.getOneUser = async (req, res) => {
+export const getOneUser = async (req, res) => {
   try {
     const user = await userModel.findById(req.user.id);
 
@@ -29,7 +29,7 @@ module.exports.getOneUser = async (req, res) => {
 };
 
 // Create user.
-module.exports.signup = async (req, res) => {
+export const signup = async (req, res) => {
   try {
     let userData = _.pick(req.body, [
       "firstName",
@@ -59,7 +59,7 @@ module.exports.signup = async (req, res) => {
 };
 
 // Login user.
-module.exports.login = async (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
   const login = await userModel.findOne({ email }).select("+password");
 
@@ -79,7 +79,7 @@ module.exports.login = async (req, res) => {
 };
 
 // Delete user by id.
-module.exports.deleteOneUser = async (req, res) => {
+export const deleteOneUser = async (req, res) => {
   try {
     const user = await userModel.findByIdAndRemove(req.params.id);
 
@@ -95,7 +95,7 @@ module.exports.deleteOneUser = async (req, res) => {
 };
 
 // Update user details.
-module.exports.updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
   try {
     const user = await userModel.findByIdAndUpdate(req.user.id, req.body, {
       new: true,
@@ -113,7 +113,7 @@ module.exports.updateUser = async (req, res) => {
 };
 
 // Update user password.
-module.exports.updatePassword = async (req, res) => {
+export const updatePassword = async (req, res) => {
   try {
     const user = await userModel.findById(req.user.id).select("+password");
     const passwordMatch = await user.comparePassword(req.body.currentPassword);
@@ -145,7 +145,7 @@ module.exports.updatePassword = async (req, res) => {
 };
 
 // Get one user by it's id. To fetch pm details on user/task page.
-module.exports.getOneUserById = async (req, res) => {
+export const getOneUserById = async (req, res) => {
   try {
     const userData = await userModel.findById(req.params.id);
 
@@ -160,7 +160,7 @@ module.exports.getOneUserById = async (req, res) => {
 };
 
 // Get multiple user data with their ObjectId for user/task page.
-module.exports.getManyUsers = async (req, res) => {
+export const getManyUsers = async (req, res) => {
   const userId = req.query.userId;
 
   try {

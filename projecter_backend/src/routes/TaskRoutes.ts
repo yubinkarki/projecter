@@ -12,11 +12,11 @@ import authentication from "@/utils/Auth";
 
 const router: Router = Router();
 
-router.get("/getone/:id", [authentication], getOneTask);
-router.get("/getall", [authentication], getAllTasks);
+router.post("/create", createTask);
 router.get("/getmanytasks", getManyTasks);
 router.get("/getusertasks", getUserCurrentTasks);
-router.post("/create", createTask);
+router.get("/getall", [authentication], getAllTasks);
 router.put("/changetaskstatus/:id", changeTaskStatus);
+router.get("/getone/:id", [authentication], getOneTask);
 
 export default router;

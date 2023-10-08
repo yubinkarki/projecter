@@ -12,12 +12,12 @@ import {
 
 const router: Router = Router();
 
+router.post("/add", addProject);
 router.get("/get/:id", getOneProject);
 router.get("/getall", getAllProjects);
 router.get("/getmany", getManyProjects);
-router.post("/add", addProject);
-router.post("/addmember", addProjectMember);
 router.put("/update/:id", updateProject);
+router.post("/addmember", addProjectMember);
 router.delete("/delete/:id", deleteProject);
 
 export default router;
