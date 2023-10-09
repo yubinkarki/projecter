@@ -1,9 +1,11 @@
-export const stagEnv: string = "staging";
-export const devEnv: string = "development";
-export const fallback_port: string = "8545";
-export const cannot_find_env: string = "Cannot find .env file";
-export const cannot_find_db_url: string = "Cannot find DB Url";
-export const server_start_failure: string = "Failed to start server";
-export const db_connection_fail: string = "Connected to database failed";
-export const server_start_success: string = "Server successfully started";
-export const db_connection_success: string = "Connected to database successfully";
+export const appStrings: { [key: string]: string } = {
+  stagEnv: "staging",
+  devEnv: "development",
+  fallback_port: "8545",
+  cannot_find_env: "Cannot find .env file",
+  cannot_find_db_url: "Cannot find DB Url",
+  server_start_failure: "Failed to start server",
+  db_connection_fail: "Connected to database failed",
+  server_start_success: "Server successfully started",
+  db_connection_success: "Connected to database successfully",
+};
