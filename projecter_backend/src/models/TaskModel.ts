@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const taskSchema = new mongoose.Schema({
+const taskSchema = new Schema({
   taskName: {
     type: String,
     required: [true, "Enter name of task"],
@@ -18,15 +18,15 @@ const taskSchema = new mongoose.Schema({
     required: [true, "Enter task deadline"],
   },
   taskOwner: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: [true, "Need an owner of task"],
   },
   taskProject: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Project",
     required: [true, "Task needs to be assigned inside a project"],
   },
 });
 
-module.exports = mongoose.model("Task", taskSchema);
+export default model("Task", taskSchema);

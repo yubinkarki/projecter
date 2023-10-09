@@ -1,4 +1,6 @@
-const sendToken = (user, statusCode, res) => {
+import { Response } from "express";
+
+const sendToken = (user: any, statusCode: number, res: Response): void => {
   const token = user.getJWTToken();
 
   const options = {
@@ -11,4 +13,4 @@ const sendToken = (user, statusCode, res) => {
   });
 };
 
-module.exports = sendToken;
+export default sendToken;

@@ -1,10 +1,12 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import validator from "validator";
+import { Schema, model } from "mongoose";
+
+import { envConfig } from "@/config/EnvConfig";
 
 // User database schema.
-const userSchema = new mongoose.Schema(
+export const userSchema = new Schema(
   {
     firstName: {
       type: String,
@@ -54,13 +56,13 @@ const userSchema = new mongoose.Schema(
       default: "user",
     },
     currentProject: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: false,
       ref: "Project",
     },
     previousProject: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         required: false,
         ref: "Project",
       },
@@ -78,17 +80,17 @@ userSchema.pre("save", async function (next) {
 });
 
 // Compare old and new password.
-userSchema.methods.comparePassword = async function (password) {
+userSchema.methods.comparePassword = async function (password: string) {
   const compare = await bcrypt.compare(password, this.password);
   return compare;
 };
 
 // JWT token creation.
 userSchema.methods.getJWTToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_KEY, {
+  return jwt.sign({ id: this._id }, envConfig.jwtKey, {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
 
 // 'User' table is created in the database.
-module.exports = mongoose.model("User", userSchema);
+export default model("User", userSchema);

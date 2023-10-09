@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const projectSchema = new mongoose.Schema(
+const projectSchema = new Schema(
   {
     projectName: {
       type: String,
@@ -25,19 +25,19 @@ const projectSchema = new mongoose.Schema(
       required: [true, "Project deadline is required"],
     },
     projectManager: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: [true, "Project manager is required"],
     },
     projectMembers: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User",
       },
     ],
     projectTasks: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Task",
       },
     ],
@@ -46,4 +46,4 @@ const projectSchema = new mongoose.Schema(
 );
 
 // 'Project' table is created in the database.
-module.exports = mongoose.model("Project", projectSchema);
+export default model("Project", projectSchema);
