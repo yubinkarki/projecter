@@ -8,15 +8,17 @@ import {
   getManyTasks,
   getUserCurrentTasks,
 } from "@/controllers/TaskController";
-import authentication from "@/utils/Auth";
+import { authentication } from "@/utils";
 
 const router: Router = Router();
 
-router.post("/create", createTask);
 router.get("/getmanytasks", getManyTasks);
 router.get("/getusertasks", getUserCurrentTasks);
 router.get("/getall", [authentication], getAllTasks);
-router.put("/changetaskstatus/:id", changeTaskStatus);
 router.get("/getone/:id", [authentication], getOneTask);
+
+router.post("/create", createTask);
+
+router.put("/changetaskstatus/:id", changeTaskStatus);
 
 export default router;
