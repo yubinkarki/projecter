@@ -1,10 +1,10 @@
 import cors from "cors";
 import express, { Express } from "express";
 
-import config from "@/config/EnvConfig";
+import { envConfig } from "@/config";
+import { appStrings } from "@/constants";
 import { connectToDb } from "@/database/Connection";
 import { authRoutes, projectRoutes, taskRoutes, userRoutes } from "@/routes";
-import { server_start_success, server_start_failure } from "@/constants/AppStrings";
 
 const app: Express = express();
 
@@ -22,7 +22,7 @@ app.use("/auth", authRoutes);
 app.use("/project", projectRoutes);
 
 try {
-  app.listen(config.port, () => console.log(`${server_start_success} at port ${config.port}`));
+  app.listen(envConfig.port, () => console.log(`${appStrings.server_start_success} at port ${envConfig.port}`));
 } catch (err) {
-  console.log(`${server_start_failure}`, err);
+  console.log(`${appStrings.server_start_failure}`, err);
 }
