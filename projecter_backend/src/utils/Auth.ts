@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 
+import { envConfig } from "@/config";
+
 const authentication = (req, res, next) => {
   const tokenHeader = req.headers.authorization; // Gets -> Bearer token
 
@@ -9,7 +11,7 @@ const authentication = (req, res, next) => {
     if (!token) res.status(401).json({ status: false, msg: "No token found" });
 
     try {
-      req.user = jwt.verify(token, process.env.JWT_KEY);
+      req.user = jwt.verify(token, envConfig.jwtKey);
       next();
     } catch (err) {
       return res.status(400).json({ status: false, msg: "Invalid token" });
