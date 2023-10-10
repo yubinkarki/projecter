@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 
-import { db_connection_success, db_connection_fail, cannot_find_db_url } from "@/constants/AppStrings";
+import { appStrings } from "@/constants";
 
 mongoose.set("strictQuery", false);
+
+const { cannot_find_db_url, db_connection_success, db_connection_fail } = appStrings;
 
 export const connectToDb = (): void => {
   mongoose
