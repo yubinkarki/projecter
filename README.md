@@ -45,7 +45,7 @@ Frontend tools:
 
 Backend tools:
 
-> Node  
+> Node (v18)  
 > Express  
 > Mongoose  
 > Dotenv  
