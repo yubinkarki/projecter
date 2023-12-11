@@ -2,7 +2,7 @@
   "name": "projecter_backend",
   "version": "2.0.0",
   "description": "Backend system for Projecter.",
-  "main": "src/App.js",
+  "main": "src/App.ts",
   "scripts": {
     "start": "nodemon",
     "build": "npx tsc"
