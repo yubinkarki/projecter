@@ -3,13 +3,13 @@ import { Response, Request } from "express";
 import { userModel } from "@/models"; // User database model.
 import { sendToken } from "@/utils"; // Create JWT token function.
 
-const _ = require("lodash");
+const { pick } = require("lodash");
 const bcrypt = require("bcrypt");
 
 // Create user.
 export const signup = async (req: Request, res: Response) => {
   try {
-    let userData = _.pick(req.body, ["firstName", "lastName", "email", "password", "phoneNumber", "designation"]);
+    let userData = pick(req.body, ["firstName", "lastName", "email", "password", "phoneNumber", "designation"]);
 
     await userModel.create(userData);
 
