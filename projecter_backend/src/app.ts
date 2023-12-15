@@ -1,16 +1,16 @@
 import cors from "cors";
-import express, { Express } from "express";
+import express, {Express} from "express";
 
-import { envConfig } from "@/config";
-import { appStrings } from "@/constants";
-import { connectToDb } from "@/database/Connection";
-import { authRoutes, projectRoutes, taskRoutes, userRoutes } from "@/routes";
+import {envConfig} from "@/config";
+import {appStrings} from "@/constants";
+import {connectToDb} from "@/database/Connection";
+import {authRoutes, projectRoutes, taskRoutes, userRoutes} from "@/routes";
 
 const app: Express = express();
 
 // Built in middleware function in express. https://expressjs.com/en/api.html
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
 connectToDb();
 
