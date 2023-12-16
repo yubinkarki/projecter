@@ -1,4 +1,4 @@
-import { Response } from "express";
+import {Response} from "express";
 
 const sendToken = (user: any, statusCode: number, res: Response): void => {
   const token = user.getJWTToken();

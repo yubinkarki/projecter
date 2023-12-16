@@ -1,18 +1,18 @@
 import mongoose from "mongoose";
 
-import { appStrings } from "@/constants";
+import {appStrings} from "@/constants";
 
 mongoose.set("strictQuery", false);
 
-const { cannot_find_db_url, db_connection_success, db_connection_fail } = appStrings;
+const {cannotFindDbUrl, dbConnectionSuccess, dbConnectionFail} = appStrings;
 
 export const connectToDb = (): void => {
   mongoose
-    .connect(process.env.DB || cannot_find_db_url)
+    .connect(process.env.DB || cannotFindDbUrl)
     .then(() => {
-      console.log(db_connection_success);
+      console.log(dbConnectionSuccess);
     })
     .catch((err: Error) => {
-      console.log(db_connection_fail, err);
+      console.log(dbConnectionFail, err);
     });
 };
