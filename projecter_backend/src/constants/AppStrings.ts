@@ -1,12 +1,15 @@
-export const appStrings: { [key: string]: string } = {
+const appStrings: {[key: string]: string} = {
   stagEnv: "staging",
+  fallbackPort: "8545",
   devEnv: "development",
-  fallback_port: "8545",
-  secret_jwt_key: "Secret",
-  cannot_find_env: "Cannot find .env file",
-  cannot_find_db_url: "Cannot find DB Url",
-  server_start_failure: "Failed to start server",
-  db_connection_fail: "Connected to database failed",
-  server_start_success: "Server successfully started",
-  db_connection_success: "Connected to database successfully",
+  noRoute: "Route does not exist",
+  cannotFindDbUrl: "Cannot find DB Url",
+  cannotFindEnv: "Cannot find .env file",
+  serverRunning: "Projecter server is running",
+  serverStartFailure: "Failed to start server",
+  dbConnectionFail: "Connected to database failed",
+  serverStartSuccess: "Server successfully started",
+  dbConnectionSuccess: "Connected to database successfully",
 };
+
+export {appStrings};
