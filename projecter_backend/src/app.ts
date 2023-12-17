@@ -3,8 +3,8 @@ import express, {Express} from "express";
 
 import {envConfig} from "@/config";
 import {appStrings} from "@/constants";
-import {connectToDb} from "@/database/Connection";
-import {authRoutes, projectRoutes, taskRoutes, userRoutes} from "@/routes";
+import {connectToDb} from "@/database";
+import {initializeRoutes} from "@/routes";
 
 const app: Express = express();
 
@@ -16,13 +16,10 @@ connectToDb();
 
 app.use(cors());
 
-app.use("/user", userRoutes);
-app.use("/task", taskRoutes);
-app.use("/auth", authRoutes);
-app.use("/project", projectRoutes);
+initializeRoutes(app);
 
 try {
-  app.listen(envConfig.port, () => console.log(`${appStrings.server_start_success} at port ${envConfig.port}`));
+  app.listen(envConfig.port, () => console.log(`${appStrings.serverStartSuccess} at port ${envConfig.port}`));
 } catch (err) {
-  console.log(`${appStrings.server_start_failure}`, err);
+  throw Error(`${appStrings.serverStartFailure} ${err}`);
 }
