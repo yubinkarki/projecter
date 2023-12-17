@@ -1,24 +1,42 @@
 import jwt from "jsonwebtoken";
+import {Response, Request, NextFunction} from "express";
 
-import { envConfig } from "@/config";
+import {envConfig} from "@/config";
+import {appStrings} from "@/constants";
 
-const authentication = (req, res, next) => {
+interface AuthenticatedRequest extends Request {
+  user?: string | jwt.JwtPayload;
+}
+
+const {serverRunning, noRoute} = appStrings;
+
+const authentication = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const tokenHeader = req.headers.authorization; // Gets -> Bearer token
 
   if (tokenHeader) {
     const token = tokenHeader.split(" ")[1]; // Splitting to get the token part only.
 
-    if (!token) res.status(401).json({ status: false, msg: "No token found" });
+    if (!token) res.status(401).json({status: false, msg: "No token found"});
 
     try {
       req.user = jwt.verify(token, envConfig.jwtKey);
-      next();
+      return next();
     } catch (err) {
-      return res.status(400).json({ status: false, msg: "Invalid token" });
+      return res.status(400).json({status: false, msg: "Invalid token"});
     }
   } else {
-    return res.status(400).json({ status: false, msg: "Please send bearer token" });
+    return res.status(400).json({status: false, msg: "Please send bearer token"});
   }
 };
 
+const undefinedRoute = async (_: Request, res: Response) => {
+  return res.status(404).json({error: true, msg: noRoute});
+};
+
+const homeRoute = async (_: Request, res: Response) => {
+  return res.status(200).json({status: true, msg: serverRunning});
+};
+
 export default authentication;
+
+export {undefinedRoute, homeRoute};
