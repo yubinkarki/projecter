@@ -28,7 +28,7 @@ export const getOneUser = async (req: Request, res: Response) => {
 // Delete user by id.
 export const deleteOneUser = async (req: Request, res: Response) => {
   try {
-    const user = await userModel.findByIdAndRemove(req.params.id);
+    const user = await userModel.findByIdAndDelete(req.params.id);
 
     if (!user) return res.status(404).json({ noUser: true, msg: "User not found" });
 
