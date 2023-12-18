@@ -4,16 +4,7 @@ import {Response, Request} from "express";
 
 import {sendToken} from "@/utils"; // Create JWT token.
 import {userModel} from "@/models"; // User database model.
-import {Designation} from "@/constants";
-
-interface NewUserFormData {
-  email: string;
-  lastName: Date;
-  firstName: Date;
-  password: string;
-  phoneNumber: string;
-  designation: Designation;
-}
+import {NewUserFormData} from "@/constants";
 
 const pickReqUserData: (keyof NewUserFormData)[] = [
   "email",
