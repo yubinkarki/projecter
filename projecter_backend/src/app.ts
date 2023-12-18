@@ -1,6 +1,7 @@
 import cors from "cors";
 import express, {Express} from "express";
 
+import {exposeApp} from "@/utils";
 import {envConfig} from "@/config";
 import {appStrings} from "@/constants";
 import {connectToDb} from "@/database";
@@ -20,6 +21,8 @@ initializeRoutes(app);
 
 try {
   app.listen(envConfig.port, () => console.log(`${appStrings.serverStartSuccess} at port ${envConfig.port}`));
+
+  exposeApp();
 } catch (err) {
-  throw Error(`${appStrings.serverStartFailure} ${err}`);
+  throw new Error(`${appStrings.serverStartFailure} -> ${err}`);
 }

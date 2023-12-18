@@ -10,5 +10,7 @@ export const connectToDb = (): void => {
   mongoose
     .connect(process.env.DB || cannotFindDbUrl)
     .then(() => console.log(dbConnectionSuccess))
-    .catch((err: Error) => console.error(dbConnectionFail, err));
+    .catch((err: Error) => {
+      throw new Error(`${dbConnectionFail} -> ${err}`);
+    });
 };
