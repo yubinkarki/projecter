@@ -1,3 +1,9 @@
+enum Role {
+  pm = "pm",
+  user = "user",
+  admin = "admin",
+}
+
 enum Designation {
   finance = "Finance",
   marketing = "Marketing",
@@ -8,10 +14,13 @@ enum Designation {
   fullstackDeveloper = "Fullstack Developer",
 }
 
-enum Role {
-  pm = "pm",
-  user = "user",
-  admin = "admin",
+interface NewUserFormData {
+  email: string;
+  lastName: Date;
+  firstName: Date;
+  password: string;
+  phoneNumber: string;
+  designation: Designation;
 }
 
-export {Role, Designation};
+export {Role, Designation, NewUserFormData};
