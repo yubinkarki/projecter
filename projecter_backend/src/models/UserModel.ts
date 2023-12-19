@@ -1,12 +1,29 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import validator from "validator";
-import { Schema, model } from "mongoose";
+import {Schema, model, Document, Types} from "mongoose";
 
-import { envConfig } from "@/config/EnvConfig";
+import {envConfig} from "@/config/EnvConfig";
+import {Role, Designation} from "@/constants";
+
+interface UserModel extends Document {
+  role: Role;
+  createdAt: Date;
+  updatedAt: Date;
+  password: string;
+  lastName: string;
+  firstName: string;
+  getJWTToken(): string;
+  designation: Designation;
+  email: {type: string; unique: {value: true}};
+  previousProject: (Types.ObjectId | string)[];
+  currentProject?: Types.ObjectId | string | null;
+  phoneNumber: {type: string; unique: {value: true}};
+  comparePassword(password: string): Promise<boolean>;
+}
 
 // User database schema.
-export const userSchema = new Schema(
+export const userSchema = new Schema<UserModel>(
   {
     firstName: {
       type: String,
@@ -20,55 +37,47 @@ export const userSchema = new Schema(
       type: String,
       required: [true, "Email address is required"],
       validate: [validator.isEmail, "Enter a valid email"],
-      unique: [true, "This email already exists"],
+      unique: {value: true, message: "This email already exists"},
     },
     // select: {Boolean} - Specifies default path selection behavior.
     password: {
       type: String,
-      required: [true, "Password is required"],
       select: false,
+      required: [true, "Password is required"],
       minLength: [5, "Minimum 5 characters required"],
     },
     designation: {
       type: String,
-      enum: [
-        "Fullstack Developer",
-        "Frontend Developer",
-        "Backend Developer",
-        "Human Resource",
-        "Finance",
-        "Product Designer",
-        "Marketing",
-      ],
+      enum: Designation,
       required: [true, "Designation is required"],
     },
     phoneNumber: {
       type: String,
       required: [true, "Phone number is required"],
-      unique: [true, "This phone number already exists"],
       minLength: [10, "Should be 10 digits minimum"],
       maxLength: [15, "Should be 15 digits maximum"],
+      unique: [true, "This phone number already exists"],
     },
     role: {
+      enum: Role,
       type: String,
-      enum: ["admin", "pm", "user"],
+      default: Role.user,
       required: [true, "Role is required"],
-      default: "user",
     },
     currentProject: {
-      type: Schema.Types.ObjectId,
-      required: false,
       ref: "Project",
+      required: false,
+      type: Schema.Types.ObjectId,
     },
     previousProject: [
       {
-        type: Schema.Types.ObjectId,
-        required: false,
         ref: "Project",
+        required: false,
+        type: Schema.Types.ObjectId,
       },
     ],
   },
-  { timestamps: true }
+  {timestamps: true}
 );
 
 // Password encrypting using bcrypt.
@@ -87,7 +96,7 @@ userSchema.methods.comparePassword = async function (password: string) {
 
 // JWT token creation.
 userSchema.methods.getJWTToken = function () {
-  return jwt.sign({ id: this._id }, envConfig.jwtKey, {
+  return jwt.sign({id: this._id}, envConfig.jwtKey, {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };

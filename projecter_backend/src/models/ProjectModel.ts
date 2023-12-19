@@ -1,6 +1,16 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types, Document } from "mongoose";
 
-const projectSchema = new Schema(
+interface ProjectModel extends Document {
+  projectName: string;
+  projectDescription: string;
+  projectStatus: "completed" | "inprogress" | "assigned";
+  projectDeadline: Date;
+  projectManager: Types.ObjectId | string;
+  projectMembers: (Types.ObjectId | string)[];
+  projectTasks: (Types.ObjectId | string)[];
+}
+
+const projectSchema = new Schema<ProjectModel>(
   {
     projectName: {
       type: String,
@@ -46,4 +56,4 @@ const projectSchema = new Schema(
 );
 
 // 'Project' table is created in the database.
-export default model("Project", projectSchema);
+export default model<ProjectModel>("Project", projectSchema);
