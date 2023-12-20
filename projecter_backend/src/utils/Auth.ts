@@ -8,7 +8,7 @@ interface AuthenticatedRequest extends Request {
   user?: string | jwt.JwtPayload;
 }
 
-const {serverRunning, noRoute} = appStrings;
+const {noRoute} = appStrings;
 
 const authentication = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const tokenHeader = req.headers.authorization; // Gets -> Bearer token
@@ -29,14 +29,10 @@ const authentication = (req: AuthenticatedRequest, res: Response, next: NextFunc
   }
 };
 
-const undefinedRoute = async (_: Request, res: Response) => {
+const undefinedRoute = (_: Request, res: Response) => {
   return res.status(404).json({error: true, msg: noRoute});
-};
-
-const homeRoute = async (_: Request, res: Response) => {
-  return res.status(200).json({status: true, msg: serverRunning});
 };
 
 export default authentication;
 
-export {undefinedRoute, homeRoute};
+export {undefinedRoute};
