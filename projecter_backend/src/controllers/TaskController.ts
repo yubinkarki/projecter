@@ -65,7 +65,7 @@ export const changeTaskStatus = async (req: Request, res: Response) => {
 
     if (!changedStatus) return res.status(404).json({ status: false, msg: "Failed to update task status" });
 
-    return res.status(200).json({ status: true, msg: "Task status changed sucessfully" });
+    return res.status(200).json({ status: true, msg: "Task status changed successfully" });
   } catch (error) {
     return res.status(400).json({ status: false, msg: "Error changing task status" });
   }

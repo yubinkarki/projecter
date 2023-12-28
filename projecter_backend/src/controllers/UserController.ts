@@ -13,7 +13,7 @@ export const getAllUsers = async (_: Request, res: Response) => {
   }
 };
 
-// Get one user by id. Currently logged in user via token.
+// Get currently logged in user via token.
 export const getOneUser = async (req: Request, res: Response) => {
   try {
     const user = await userModel.findById(req.params.id);
