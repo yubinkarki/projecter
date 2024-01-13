@@ -53,8 +53,8 @@ Backend tools:
 > CORS  
 > JWT
 
-![Projecter - Home Page](/projecter_frontend/src/assets/images/screenshots/1_home.jpg)
+![Projecter - Home Page](/screenshots/1_home.jpg)
 
-Find more screenshots [here](/projecter_frontend/src/assets/images/screenshots/).
+Find more screenshots [here](/screenshots).
 
-Developed by [Yubin Karki](https://www.linkedin.com/in/yubinkarki/)
+Developed by [Yubin Karki](https://yubinkarki.com.np/)
