@@ -30,7 +30,9 @@ export const signup = async (req: Request, res: Response) => {
 
     const result = await userModel.create(userData);
 
-    if (!result) res.status(500).json({status: false, msg: "Failed to create user"});
+    if (!result) {
+      res.status(500).json({status: false, msg: "Failed to create user"});
+    }
 
     return res.status(201).json({status: true, msg: "User created successfully"});
   } catch (err: any) {
@@ -38,21 +40,25 @@ export const signup = async (req: Request, res: Response) => {
   }
 };
 
-// Login user.
 export const login = async (req: Request, res: Response) => {
   const {email, password} = req.body;
-  const login = await userModel.findOne({email}).select("+password");
 
   try {
-    if (!login) res.status(404).json({emailError: true, msg: "Could not find email"});
+    const login = await userModel.findOne({email}).select("+password");
 
-    const verify = await compare(password, login?.password ?? "");
+    if (!login) {
+      return res.status(404).json({emailError: true, msg: "Could not find email"});
+    }
 
-    if (!verify) res.status(401).json({passwordError: true, msg: "Incorrect password"});
+    const verify = await compare(password, login.password);
+
+    if (!verify) {
+      return res.status(401).json({passwordError: true, msg: "Incorrect password"});
+    }
 
     return sendToken(login, 202, res);
   } catch (err: any) {
-    res.status(500).json({status: false, msg: err.errors});
+    return res.status(500).json({status: false, msg: err.errors});
   }
 };
 
