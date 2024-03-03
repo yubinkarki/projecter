@@ -5,7 +5,7 @@ import { LOG_IN, USER_DATA } from "../containers/Constant";
 const loginAction = (credentials) => async (dispatch) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/user/login",
+      "http://localhost:3000/auth/login",
       credentials
     );
 
