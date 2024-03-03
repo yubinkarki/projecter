@@ -30,7 +30,7 @@ JWT_EXPIRE = 90d
 Frontend tools:
 
 > MUI  
-> SCSS
+> SCSS  
 > Axios  
 > React  
 > React Router  
@@ -39,13 +39,13 @@ Frontend tools:
 
 Backend tools:
 
-> JWT
-> CORS  
-> Dotenv  
+> JWT  
+> CORS   
+> Dotenv    
 > Bcrypt  
-> Express  
-> Mongoose  
-> Node (v18)  
+> Express   
+> Mongoose   
+> Node (v18)    
 
 ![Projecter - Home Page](/screenshots/1_home.jpg)
 
