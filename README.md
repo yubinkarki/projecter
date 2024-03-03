@@ -6,52 +6,46 @@ The three user roles in this application are:
 - Project Manager (PM)
 - Employee (User)
 
-All users registered through the /signup page has the **User** role by default. Only admin can change the user role to **PM**.
+All users registered through the __signup__ page has the **User** role by default. Only admin can change the user role to **PM**. There will be one admin on the database as defined in the environment file.
 
 ```
-This project is created using the MERN stack on Windows.
+This project is created using the MERN stack. Database is Mongo cloud.
 ```
 
 Steps to start the application:
 
 - Clone the repo
-- Run `npm install` inside each of the frontend and backend folders
+- Run `nvm use` && `npm install` inside each of the frontend and backend folders
 - Create .env file in the root of backend folder with the following contents
 
 ```
-DB = "mongodb+srv://guest:12345@projecter.vt3wa4s.mongodb.net/main?retryWrites=true&w=majority"
+DB = "your-online-db-url"
 PORT = 3000
 JWT_KEY = at-least-32-character-ultra-secure-secret-key
 JWT_EXPIRE = 90d
 ```
 
-- Run `npm start` inside both folders and start exploring. The shared database is read only.
-
-```
-User credentials:
-- email: ky@gmail.com
-- password: 22222
-```
+- Run `npm start` inside both folders and start exploring.  
 
 Frontend tools:
 
-> React  
 > MUI  
-> Formik & Yup  
-> React Router  
-> Axios  
-> Redux Toolkit  
 > SCSS
+> Axios  
+> React  
+> React Router  
+> Formik & Yup  
+> Redux Toolkit  
 
 Backend tools:
 
-> Node (v18)  
-> Express  
-> Mongoose  
+> JWT
+> CORS  
 > Dotenv  
 > Bcrypt  
-> CORS  
-> JWT
+> Express  
+> Mongoose  
+> Node (v18)  
 
 ![Projecter - Home Page](/screenshots/1_home.jpg)
 
