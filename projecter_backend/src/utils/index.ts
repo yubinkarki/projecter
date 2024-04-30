@@ -1,5 +1,6 @@
 import sendToken from "./UserToken";
-import {exposeApp} from "./ExposeApp";
-import authentication, {undefinedRoute} from "./Auth";
+import authentication from "./Auth";
+import { exposeApp } from "./ExposeApp";
+import { baseRoute, undefinedRoute } from "./RouteConfig";
 
-export {authentication, sendToken, undefinedRoute, exposeApp};
+export { authentication, sendToken, exposeApp, baseRoute, undefinedRoute };
