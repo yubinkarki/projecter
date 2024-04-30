@@ -1,10 +1,7 @@
+const _ = require("lodash");
 import { Response, Request } from "express";
 
-// import taskModel from "../models/TaskModel";
-// import projectModel from "../models/ProjectModel";
 import { taskModel, projectModel, userModel } from "@/models";
-
-const _ = require("lodash");
 
 // Create task.
 export const createTask = async (req: Request, res: Response) => {

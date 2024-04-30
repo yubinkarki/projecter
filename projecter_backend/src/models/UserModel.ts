@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import validator from "validator";
-import {Schema, model, Document, Types} from "mongoose";
+import { Schema, model, Document, Types } from "mongoose";
 
-import {envConfig} from "@/config/EnvConfig";
-import {Role, Designation} from "@/constants";
+import { envConfig } from "@/config/EnvConfig";
+import { Role, Designation } from "@/constants";
 
 interface UserModel extends Document {
   role: Role;
@@ -15,10 +15,10 @@ interface UserModel extends Document {
   firstName: string;
   getJWTToken(): string;
   designation: Designation;
-  email: {type: string; unique: {value: true}};
+  email: { type: string; unique: { value: true } };
   previousProject: (Types.ObjectId | string)[];
   currentProject?: Types.ObjectId | string | null;
-  phoneNumber: {type: string; unique: {value: true}};
+  phoneNumber: { type: string; unique: { value: true } };
   comparePassword(password: string): Promise<boolean>;
 }
 
@@ -37,7 +37,7 @@ export const userSchema = new Schema<UserModel>(
       type: String,
       required: [true, "Email address is required"],
       validate: [validator.isEmail, "Enter a valid email"],
-      unique: {value: true, message: "This email already exists"},
+      unique: { value: true, message: "This email already exists" },
     },
     // select: {Boolean} - Specifies default path selection behavior.
     password: {
@@ -77,7 +77,7 @@ export const userSchema = new Schema<UserModel>(
       },
     ],
   },
-  {timestamps: true}
+  { timestamps: true }
 );
 
 // Password encrypting using bcrypt.
@@ -96,8 +96,8 @@ userSchema.methods.comparePassword = async function (password: string) {
 
 // JWT token creation.
 userSchema.methods.getJWTToken = function () {
-  return jwt.sign({id: this._id}, envConfig.jwtKey, {
-    expiresIn: process.env.JWT_EXPIRE,
+  return jwt.sign({ id: this._id }, envConfig.jwtKey, {
+    expiresIn: envConfig.jwtExpiryDuration,
   });
 };
 
