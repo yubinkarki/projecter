@@ -1,28 +1,32 @@
-import {Secret} from "jsonwebtoken";
-import dotenv, {DotenvConfigOutput} from "dotenv";
+import dotenv from "dotenv";
+import { Secret } from "jsonwebtoken";
 
-import {appStrings} from "@/constants";
-
-const env: DotenvConfigOutput = dotenv.config();
+import { appStrings } from "@/constants";
 
 interface EnvConfig {
   port: number;
   jwtKey: Secret;
-  appEnvironment: string;
+  nodeEnv: string;
   databaseUrl: string | undefined;
   jwtExpiryDuration: string | undefined;
 }
 
-if (process.env.ENV === "local") {
-  if (env.error) {
-    throw new Error(`⚠️ ${appStrings.cannotFindEnv}`);
-  }
+switch (process.env.NODE_ENV) {
+  case "production":
+    dotenv.config({ path: appStrings.prodEnvFile });
+    break;
+  case "staging":
+    dotenv.config({ path: appStrings.stagEnvFile });
+    break;
+  default:
+    dotenv.config({ path: appStrings.devEnvFile });
+    break;
 }
 
 export const envConfig: EnvConfig = {
   databaseUrl: process.env.DB,
   jwtKey: process.env.JWT_KEY as Secret,
   jwtExpiryDuration: process.env.JWT_EXPIRE,
-  appEnvironment: process.env.ENV || appStrings.devEnv,
+  nodeEnv: process.env.NODE_ENV || appStrings.devEnv,
   port: parseInt(process.env.PORT || appStrings.fallbackPort, 10),
 };
