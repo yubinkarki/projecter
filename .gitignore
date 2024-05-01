@@ -1,3 +1,52 @@
-*.env
-dist/
+# Node.js
 node_modules/
+npm-debug.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# Build output
+dist
+build
+out
+
+# Dependency directory (alternative to node_modules/)
+jspm_packages/
+web_modules/
+
+# Testing frameworks
+coverage/
+jest/
+mocha/
+ava/
+
+# IDE and editor files
+.idea/
+.vscode/
+.sublime*
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+*.pid
+*.seed
+custom_logs
+
+# linting and formatting
+eslintcache/.
+
+# Type coverage reports
+*.yalc
+
+# Compiled TypeScript files
+*.js
+*.jsx
+*.d.ts
+
+# dotenv environment variables
+.env
+.env.development
+.env.staging
+.env.production
