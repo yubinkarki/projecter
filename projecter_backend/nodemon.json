@@ -2,5 +2,5 @@
   "ext": "js,ts,json",
   "watch": ["src", ".env"],
   "ignore": ["**/*.test.ts", "**/*.spec.ts", ".git", "node_modules"],
-  "exec": "ts-node -r tsconfig-paths/register --transpile-only ./src/App.ts"
+  "exec": "node --env-file=.env.development --import=tsx ./src/App.ts"
 }
