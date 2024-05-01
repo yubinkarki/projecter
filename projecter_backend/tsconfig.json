@@ -19,11 +19,8 @@
     "strictFunctionTypes": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "paths": { "@/*": ["./src/*"], "@root/*": ["./*"] }
   },
-  "ts-node": {"esm": true},
   "include": ["./src/**/*"],
   "exclude": ["node_modules", "tests"]
 }
