@@ -19,10 +19,11 @@ Steps to start the application:
 - Create .env file in the root of backend folder with the following contents
 
 ```
-DB = "your-online-db-url"
 PORT = 3000
-JWT_KEY = at-least-32-character-ultra-secure-secret-key
 JWT_EXPIRE = 90d
+NODE_ENV=development
+DB = "your-online-db-url"
+JWT_KEY = at-least-32-character-ultra-secure-secret-key
 ```
 
 - Run `npm start` inside both folders and start exploring.  
