@@ -1,15 +1,32 @@
-import { Express } from "express";
+import { Response, Request, Application } from "express";
 
-import { baseRoute, undefinedRoute } from "@/utils";
+import { appStrings } from "@/constants";
 import { authRoutes, projectRoutes, taskRoutes, userRoutes } from "@/routes";
 
-const initializeRoutes = (app: Express): void => {
+const { serverRunning, appVersion, noRoute } = appStrings;
+
+const baseRoute = (_: Request, res: Response): Response => {
+  return res.status(200).send({
+    status: true,
+    msg: serverRunning,
+    version: appVersion,
+  });
+};
+
+const undefinedRoute = (_: Request, res: Response): Response => {
+  return res.status(404).send({
+    error: true,
+    msg: noRoute,
+  });
+};
+
+const initializeRoutes = (app: Application): void => {
   app.use("/user", userRoutes);
   app.use("/task", taskRoutes);
   app.use("/auth", authRoutes);
   app.use("/project", projectRoutes);
 
-  app.use("/", baseRoute);
+  app.get("/", baseRoute);
   app.use("*", undefinedRoute);
 };
 
