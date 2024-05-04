@@ -6,7 +6,7 @@ import { Schema, model, Document, Types } from "mongoose";
 import { envConfig } from "@/config/EnvConfig";
 import { Role, Designation } from "@/constants";
 
-interface UserModel extends Document {
+export interface UserModel extends Document {
   role: Role;
   createdAt: Date;
   updatedAt: Date;
@@ -81,7 +81,7 @@ export const userSchema = new Schema<UserModel>(
 );
 
 // Password encrypting using bcrypt.
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next): Promise<void> {
   if (!this.isModified("password")) {
     next();
   }
@@ -89,17 +89,23 @@ userSchema.pre("save", async function (next) {
 });
 
 // Compare old and new password.
-userSchema.methods.comparePassword = async function (password: string) {
-  const compare = await bcrypt.compare(password, this.password);
+userSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
+  const compare: boolean = await bcrypt.compare(password, this.password);
   return compare;
 };
 
 // JWT token creation.
-userSchema.methods.getJWTToken = function () {
-  return jwt.sign({ id: this._id }, envConfig.jwtKey, {
+userSchema.methods.getJWTToken = function (): string {
+  const payload = {
+    id: this._id,
+    role: this.role,
+    email: this.email,
+  };
+
+  return jwt.sign(payload, envConfig.jwtKey, {
     expiresIn: envConfig.jwtExpiryDuration,
   });
 };
 
 // 'User' table is created in the database.
-export default model("User", userSchema);
+export default model<UserModel>("User", userSchema);
