@@ -3,13 +3,13 @@ import { Secret } from "jsonwebtoken";
 
 import { appStrings } from "@/constants";
 
-interface EnvConfig {
+type EnvConfig = {
   port: number;
   jwtKey: Secret;
   nodeEnv: string;
   databaseUrl: string | undefined;
   jwtExpiryDuration: string | undefined;
-}
+};
 
 switch (process.env.NODE_ENV) {
   case "production":

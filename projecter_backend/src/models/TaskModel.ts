@@ -1,14 +1,8 @@
-import { Schema, model, Types, Document } from "mongoose";
+import { Schema, model } from "mongoose";
 
-interface TaskModel extends Document {
-  taskName: string;
-  taskStatus: "completed" | "inprogress" | "assigned";
-  taskDeadline: Date;
-  taskOwner: Types.ObjectId | string;
-  taskProject: Types.ObjectId | string;
-}
+import { TaskSchemaInterface } from "@/constants";
 
-const taskSchema = new Schema<TaskModel>({
+const Task = new Schema<TaskSchemaInterface>({
   taskName: {
     type: String,
     required: [true, "Enter name of task"],
@@ -37,4 +31,4 @@ const taskSchema = new Schema<TaskModel>({
   },
 });
 
-export default model<TaskModel>("Task", taskSchema);
+export default model<TaskSchemaInterface>("Task", Task);

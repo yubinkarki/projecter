@@ -1,45 +1,30 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import validator from "validator";
-import { Schema, model, Document, Types } from "mongoose";
+import { Schema, model } from "mongoose";
 
 import { envConfig } from "@/config/EnvConfig";
-import { Role, Designation } from "@/constants";
+import { RoleEnum, DesignationEnum, UserSchemaInterface } from "@/constants";
 
-export interface UserModel extends Document {
-  role: Role;
-  createdAt: Date;
-  updatedAt: Date;
-  password: string;
-  lastName: string;
-  firstName: string;
-  getJWTToken(): string;
-  designation: Designation;
-  email: { type: string; unique: { value: true } };
-  previousProject: (Types.ObjectId | string)[];
-  currentProject?: Types.ObjectId | string | null;
-  phoneNumber: { type: string; unique: { value: true } };
-  comparePassword(password: string): Promise<boolean>;
-}
+const emailRegex = /^[\w-.]+@([\w-]+.)+[a-zA-Z]{2,4}$/;
 
-// User database schema.
-export const userSchema = new Schema<UserModel>(
+export const User = new Schema<UserSchemaInterface>(
   {
     firstName: {
       type: String,
       required: [true, "First name is required"],
+      minLength: [2, "Minimum 2 characters required"],
     },
     lastName: {
       type: String,
       required: [true, "Last name is required"],
+      minLength: [2, "Minimum 2 characters required"],
     },
     email: {
       type: String,
       required: [true, "Email address is required"],
-      validate: [validator.isEmail, "Enter a valid email"],
+      validate: [(value: string) => emailRegex.test(value) || "Enter a valid email"],
       unique: { value: true, message: "This email already exists" },
     },
-    // select: {Boolean} - Specifies default path selection behavior.
     password: {
       type: String,
       select: false,
@@ -48,7 +33,7 @@ export const userSchema = new Schema<UserModel>(
     },
     designation: {
       type: String,
-      enum: Designation,
+      enum: DesignationEnum,
       required: [true, "Designation is required"],
     },
     phoneNumber: {
@@ -59,12 +44,13 @@ export const userSchema = new Schema<UserModel>(
       unique: [true, "This phone number already exists"],
     },
     role: {
-      enum: Role,
+      enum: RoleEnum,
       type: String,
-      default: Role.user,
+      default: RoleEnum.user,
       required: [true, "Role is required"],
     },
     currentProject: {
+      default: null,
       ref: "Project",
       required: false,
       type: Schema.Types.ObjectId,
@@ -81,21 +67,20 @@ export const userSchema = new Schema<UserModel>(
 );
 
 // Password encrypting using bcrypt.
-userSchema.pre("save", async function (next): Promise<void> {
+User.pre("save", async function (next): Promise<void> {
   if (!this.isModified("password")) {
     next();
   }
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-// Compare old and new password.
-userSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
+User.methods.comparePassword = async function (password: string): Promise<boolean> {
   const compare: boolean = await bcrypt.compare(password, this.password);
   return compare;
 };
 
 // JWT token creation.
-userSchema.methods.getJWTToken = function (): string {
+User.methods.getJWTToken = function (): string {
   const payload = {
     id: this._id,
     role: this.role,
@@ -107,5 +92,4 @@ userSchema.methods.getJWTToken = function (): string {
   });
 };
 
-// 'User' table is created in the database.
-export default model<UserModel>("User", userSchema);
+export default model<UserSchemaInterface>("User", User);
