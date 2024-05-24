@@ -1,13 +1,13 @@
 import path from "path";
 import winston from "winston";
 
-import { envConfig } from "./EnvConfig";
-import { emojis, appStrings } from "@/constants";
+import { EnvConfig } from "./EnvConfig";
+import { Emojis, Strings } from "@/constants";
 
-const { development, errorLogFile, customLogDir, dateFormat, rootDir } = appStrings;
+const { development, errorLogFile, customLogDir, dateFormat, rootDir } = Strings;
 
 const logsDir: string = path.join(rootDir, customLogDir);
-const isDevelopment: boolean = (envConfig.nodeEnv || development) === development;
+const isDevelopment: boolean = (EnvConfig.nodeEnv || development) === development;
 
 const levels: winston.config.AbstractConfigSetLevels = {
   warn: 1,
@@ -26,13 +26,13 @@ const format: winston.Logform.Format = winston.format.combine(
     const message = info.message;
     const timestamp = info.timestamp;
     const level = info.level.toUpperCase();
-    const emoji = emojis[info.level] || emojis["fallback"];
+    const emoji = Emojis[info.level] || Emojis["fallback"];
 
     return `${timestamp} - ${emoji} ${level} - ${message}`;
   })
 );
 
-export const logger: winston.Logger = winston.createLogger({
+export const Logger: winston.Logger = winston.createLogger({
   levels: levels,
   transports: [
     new winston.transports.Console({
