@@ -2,11 +2,12 @@ import { pick } from "lodash";
 import { compare } from "bcrypt";
 import { Response, Request } from "express";
 
+import { logger } from "@/config";
 import { sendToken } from "@/utils";
-import { userModel, UserModel } from "@/models";
-import { NewUserFormData } from "@/constants";
+import { UserModel } from "@/models";
+import { NewUserFormType, UserSchemaInterface, StatusEnum } from "@/constants";
 
-const pickReqUserData: (keyof NewUserFormData)[] = [
+const pickReqUserData: (keyof NewUserFormType)[] = [
   "email",
   "password",
   "lastName",
@@ -15,43 +16,41 @@ const pickReqUserData: (keyof NewUserFormData)[] = [
   "designation",
 ];
 
-// Create user.
-export const signup = async (req: Request, res: Response) => {
+export async function signup(req: Request, res: Response) {
   try {
-    const userData: NewUserFormData = pick(req.body, pickReqUserData);
+    const userData: NewUserFormType = pick(req.body, pickReqUserData);
 
-    const result = await userModel.create(userData);
+    const result = await UserModel.create(userData);
 
     if (!result) {
       res.status(500).json({ status: false, msg: "Failed to create user" });
     }
 
     return res.status(201).json({ status: true, msg: "User created successfully" });
-  } catch (err: any) {
-    return res.status(500).json({ status: false, msg: err.errors });
+  } catch (e: any) {
+    return res.status(500).json({ status: false, msg: e.errors });
   }
-};
+}
 
-export const login = async (req: Request, res: Response) => {
+export async function login(req: Request, res: Response): Promise<Response> {
   const { email, password } = req.body;
 
   try {
-    const login: UserModel = await userModel.findOne({ email }).select("+password");
+    const result: UserSchemaInterface | null = await UserModel.findOne({ email }).select("+password");
 
-    console.log("🚀 - login - login >>", login);
-
-    if (!login) {
-      return res.status(404).json({ emailError: true, msg: "Could not find email" });
+    if (!result) {
+      return res.status(404).json({ emailError: true, msg: "User nor found" });
     }
 
-    const verify = await compare(password, login.password);
+    const verify: boolean = await compare(password, result.password);
 
     if (!verify) {
       return res.status(401).json({ passwordError: true, msg: "Incorrect password" });
     }
 
-    return sendToken(login, 202, res);
-  } catch (err: any) {
-    return res.status(500).json({ status: false, msg: err.errors });
+    return sendToken(result, StatusEnum.accepted, res);
+  } catch (e: unknown) {
+    logger.error("Login error:", e);
+    return res.status(500).json({ status: false, msg: e });
   }
-};
+}

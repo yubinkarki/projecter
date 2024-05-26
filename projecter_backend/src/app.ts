@@ -1,26 +1,30 @@
 import cors from "cors";
 import express, { Express } from "express";
 
-import { envConfig } from "@/config";
-import { appStrings } from "@/constants";
+import { strings } from "@/constants";
 import { connectToDb } from "@/database";
 import { initializeRoutes } from "@/routes";
+import { envConfig, logger } from "@/config";
+import { requestLogger } from "@/middlewares";
 
 const app: Express = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-connectToDb();
-
 app.use(cors());
+app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+// Custom middlewares.
+app.use(requestLogger);
 
 initializeRoutes(app);
 
+function appListenLog(): void {
+  logger.info(`${strings.serverStartSuccess} at port ${envConfig.port} | ${envConfig.nodeEnv} mode`);
+}
+
 try {
-  app.listen(envConfig.port, () =>
-    console.log(`${appStrings.serverStartSuccess} at port ${envConfig.port} | ${envConfig.nodeEnv} mode`)
-  );
-} catch (e) {
-  throw new Error(`${appStrings.serverStartFailure} -> ${e}`);
+  connectToDb();
+  app.listen(envConfig.port, appListenLog);
+} catch (e: unknown) {
+  logger.error(`${strings.serverStartFailure}:`, e);
 }

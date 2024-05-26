@@ -2,8 +2,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Schema, model } from "mongoose";
 
-import { envConfig } from "@/config/EnvConfig";
-import { RoleEnum, DesignationEnum, UserSchemaInterface } from "@/constants";
+import { envConfig } from "@/config";
+import { RoleEnum, DesignationEnum, UserSchemaInterface, UserSignedDetailsType } from "@/constants";
 
 const emailRegex = /^[\w-.]+@([\w-]+.)+[a-zA-Z]{2,4}$/;
 
@@ -80,11 +80,12 @@ User.methods.comparePassword = async function (password: string): Promise<boolea
 };
 
 // JWT token creation.
-User.methods.getJWTToken = function (): string {
-  const payload = {
+User.methods.getToken = function (): string {
+  const payload: UserSignedDetailsType = {
     id: this._id,
     role: this.role,
     email: this.email,
+    designation: this.designation,
   };
 
   return jwt.sign(payload, envConfig.jwtKey, {

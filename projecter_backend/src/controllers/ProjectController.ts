@@ -4,7 +4,7 @@ const projectModel = require("../models/ProjectModel");
 const _ = require("lodash");
 
 // Create new project - by admin.
-export const addProject = async (req: Request, res: Response) => {
+export async function addProject(req: Request, res: Response) {
   try {
     let projectData = _.pick(req.body, [
       "projectName",
@@ -27,10 +27,10 @@ export const addProject = async (req: Request, res: Response) => {
       msg: "Project creation failed",
     });
   }
-};
+}
 
 // Update project details - by admin and pm.
-export const updateProject = async (req: Request, res: Response) => {
+export async function updateProject(req: Request, res: Response) {
   try {
     const project = await projectModel.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -44,10 +44,10 @@ export const updateProject = async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(500).json({ status: false, msg: "Updating project failed" });
   }
-};
+}
 
 // Delete project - by admin.
-export const deleteProject = async (req: Request, res: Response) => {
+export async function deleteProject(req: Request, res: Response) {
   try {
     const project = await projectModel.findByIdAndDelete(req.params.id);
 
@@ -59,10 +59,10 @@ export const deleteProject = async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(500).json({ status: false, msg: "Project deletion failed" });
   }
-};
+}
 
 // Get one project by it's id - by admin and pm.
-export const getOneProject = async (req: Request, res: Response) => {
+export async function getOneProject(req: Request, res: Response) {
   try {
     const project = await projectModel.findById(req.params.id);
 
@@ -76,10 +76,10 @@ export const getOneProject = async (req: Request, res: Response) => {
 
     return null;
   }
-};
+}
 
 // Get multiple projects with their ObjectId for user/project page.
-export const getManyProjects = async (req: Request, res: Response) => {
+export async function getManyProjects(req: Request, res: Response) {
   const projectId = req.query.projectId;
 
   try {
@@ -95,10 +95,10 @@ export const getManyProjects = async (req: Request, res: Response) => {
 
     return null;
   }
-};
+}
 
 // Get all projects in the database - by admin.
-export const getAllProjects = async (_: Request, res: Response) => {
+export async function getAllProjects(_: Request, res: Response) {
   try {
     const projects = await projectModel.find();
 
@@ -108,10 +108,10 @@ export const getAllProjects = async (_: Request, res: Response) => {
   } catch (err) {
     return res.status(400).json({ status: false, msg: "Error getting projects" });
   }
-};
+}
 
 // Add users to a project.
-export const addProjectMember = async (req: Request, res: Response) => {
+export async function addProjectMember(req: Request, res: Response) {
   try {
     const { userId, projectId } = req.body;
     const checkExistingMember = await projectModel.findOne({ projectId });
@@ -136,4 +136,4 @@ export const addProjectMember = async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(500).json({ status: false, msg: "Error adding user to project" });
   }
-};
+}

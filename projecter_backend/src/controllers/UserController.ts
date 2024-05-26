@@ -1,24 +1,24 @@
 import { Response, Request } from "express";
 
-import { userModel } from "@/models";
-import { AuthenticatedRequest } from "@/constants";
+import { UserModel } from "@/models";
+import { AuthenticatedUserInterface } from "@/constants";
 
 // Get all users.
-export const getAllUsers = async (_: Request, res: Response) => {
+export async function getAllUsers(_: Request, res: Response) {
   try {
-    const users = await userModel.find();
+    const users = await UserModel.find();
     if (users.length > 0) return res.json({ status: true, users });
     return res.status(404).json({ emptyUser: true, msg: "Users not found" });
   } catch (err) {
     return res.status(400).json({ status: false, msg: "Error getting users" });
   }
-};
+}
 
 // Get currently logged in user via token.
-export const getOneUser = async (req: AuthenticatedRequest, res: Response) => {
+export async function getOneUser(req: AuthenticatedUserInterface, res: Response) {
   if (req.user) {
     try {
-      const user = await userModel.findById(req.user.id);
+      const user = await UserModel.findById(req.user.id);
 
       if (user) return res.json({ status: true, user });
       return res.status(404).json({ noUser: true, msg: "User not found" });
@@ -28,12 +28,12 @@ export const getOneUser = async (req: AuthenticatedRequest, res: Response) => {
   }
 
   return res.status(400).json({ status: false, msg: "Logged in user not found" });
-};
+}
 
 // Delete user by id.
-export const deleteOneUser = async (req: Request, res: Response) => {
+export async function deleteOneUser(req: Request, res: Response) {
   try {
-    const user = await userModel.findByIdAndDelete(req.params.id);
+    const user = await UserModel.findByIdAndDelete(req.params.id);
 
     if (!user) return res.status(404).json({ noUser: true, msg: "User not found" });
 
@@ -41,12 +41,12 @@ export const deleteOneUser = async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(400).json({ status: false, msg: "Error deleting user" });
   }
-};
+}
 
 // Update user details.
-export const updateUser = async (req: Request, res: Response) => {
+export async function updateUser(req: Request, res: Response) {
   try {
-    const user = await userModel.findByIdAndUpdate(req.params.id, req.body, {
+    const user = await UserModel.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
 
@@ -55,12 +55,12 @@ export const updateUser = async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(404).json({ status: false, msg: "Error updating users", err });
   }
-};
+}
 
 // Get one user by it's id. To fetch pm details on user/task page.
-export const getOneUserById = async (req: Request, res: Response) => {
+export async function getOneUserById(req: Request, res: Response) {
   try {
-    const userData = await userModel.findById(req.params.id);
+    const userData = await UserModel.findById(req.params.id);
 
     if (!userData) {
       return res.status(404).json({ noUser: true, msg: "User not found" });
@@ -70,14 +70,14 @@ export const getOneUserById = async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(404).json({ status: false, msg: "User not found", err });
   }
-};
+}
 
 // Update user password.
-export const updatePassword = async (req: AuthenticatedRequest, res: Response) => {
+export async function updateUserPassword(req: AuthenticatedUserInterface, res: Response) {
   if (req.user) {
     try {
       const { id } = req.user;
-      const user = await userModel.findById(id).select("+password");
+      const user = await UserModel.findById(id).select("+password");
       const passwordMatch = await user?.comparePassword(req.body.currentPassword);
 
       if (!passwordMatch) res.status(400).json({ passwordError: true, msg: "Incorrect current password" });
@@ -100,4 +100,4 @@ export const updatePassword = async (req: AuthenticatedRequest, res: Response) =
   }
 
   return res.status(404).json({ noUser: true, msg: "User not found" });
-};
+}
