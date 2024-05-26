@@ -5,7 +5,9 @@ Server side of the Projecter system that is responsible for rest API endpoints a
 ### Conventions
 
 - Single line informative comments end with a period.
-- PascalCase for types and interfaces. Everything else follows camelCase.
+- Function declaration is done using the `function` keyword.
+- Error level log in every catch block as `("Error description:", e)`;
+- PascalCase for types, interfaces and enums. Everything else in camelCase.
 
 ### Tools
 
