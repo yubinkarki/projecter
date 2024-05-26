@@ -1,7 +1,7 @@
-import authRoutes from "./AuthRoutes";
-import taskRoutes from "./TaskRoutes";
-import userRoutes from "./UserRoutes";
-import projectRoutes from "./ProjectRoutes";
+import AuthRoutes from "./AuthRoutes";
+import TaskRoutes from "./TaskRoutes";
+import UserRoutes from "./UserRoutes";
+import ProjectRoutes from "./ProjectRoutes";
 import initializeRoutes from "./InitializeRoutes";
 
-export { authRoutes, projectRoutes, taskRoutes, userRoutes, initializeRoutes };
+export { AuthRoutes, ProjectRoutes, TaskRoutes, UserRoutes, initializeRoutes };

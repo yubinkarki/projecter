@@ -1,8 +1,10 @@
 import path from "path";
 
+import { PackageJsonType } from "@/constants";
+
 const rootModulePath: string = require.resolve("../../package.json");
 
-const packageJson = require(rootModulePath);
+const packageJson: PackageJsonType = require(rootModulePath);
 
 const emojis: Record<string, string> = {
   warn: "❗️",
@@ -15,7 +17,7 @@ const emojis: Record<string, string> = {
   fallback: "👽",
 };
 
-const appStrings: Record<string, string> = {
+const strings: Record<string, string> = {
   stagEnvFile: ".env.staging",
   prodEnvFile: ".env.production",
   devEnvFile: ".env.development",
@@ -38,4 +40,4 @@ const appStrings: Record<string, string> = {
   dbConnectionSuccess: "Connected to database successfully",
 } as const;
 
-export { emojis, appStrings };
+export { emojis, strings };

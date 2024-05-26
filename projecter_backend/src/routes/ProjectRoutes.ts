@@ -8,7 +8,7 @@ import {
   getAllProjects,
   addProjectMember,
   getManyProjects,
-} from "@/controllers/ProjectController";
+} from "@/controllers";
 
 const router: Router = Router();
 

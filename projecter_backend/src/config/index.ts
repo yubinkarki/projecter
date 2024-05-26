@@ -1,4 +1,4 @@
-import { Logger } from "./Logger";
-import { EnvConfig } from "./EnvConfig";
+import { logger } from "./Logger";
+import { envConfig } from "./EnvConfig";
 
-export { Logger, EnvConfig };
+export { logger, envConfig };

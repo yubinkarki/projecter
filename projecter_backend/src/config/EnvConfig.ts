@@ -1,24 +1,24 @@
 import dotenv from "dotenv";
 import { Secret } from "jsonwebtoken";
 
-import { Strings, EnvConfigType } from "@/constants";
+import { strings, EnvConfigType } from "@/constants";
 
 switch (process.env.NODE_ENV) {
   case "production":
-    dotenv.config({ path: Strings.prodEnvFile });
+    dotenv.config({ path: strings.prodEnvFile });
     break;
   case "staging":
-    dotenv.config({ path: Strings.stagEnvFile });
+    dotenv.config({ path: strings.stagEnvFile });
     break;
   default:
-    dotenv.config({ path: Strings.devEnvFile });
+    dotenv.config({ path: strings.devEnvFile });
     break;
 }
 
-export const EnvConfig: EnvConfigType = {
+export const envConfig: EnvConfigType = {
   databaseUrl: process.env.DB,
   jwtKey: process.env.JWT_KEY as Secret,
   jwtExpiryDuration: process.env.JWT_EXPIRE,
-  nodeEnv: process.env.NODE_ENV || Strings.devEnv,
-  port: parseInt(process.env.PORT || Strings.fallbackPort, 10),
+  nodeEnv: process.env.NODE_ENV || strings.devEnv,
+  port: parseInt(process.env.PORT || strings.fallbackPort, 10),
 };

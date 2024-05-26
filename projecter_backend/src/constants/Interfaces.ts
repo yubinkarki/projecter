@@ -39,6 +39,6 @@ export interface UserSchemaInterface extends Document {
   email: { type: string; unique: { value: true } };
   phoneNumber: { type: string; unique: { value: true } };
 
-  getJWTToken(): string;
+  getToken(): string;
   comparePassword(password: string): Promise<boolean>;
 }

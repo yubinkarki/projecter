@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+import { authentication } from "@/utils";
 import {
   getAllTasks,
   createTask,
@@ -7,8 +8,7 @@ import {
   changeTaskStatus,
   getManyTasks,
   getUserCurrentTasks,
-} from "@/controllers/TaskController";
-import { authentication } from "@/utils";
+} from "@/controllers";
 
 const router: Router = Router();
 
