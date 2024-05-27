@@ -1,12 +1,12 @@
-import ngrok from "ngrok";
+/* import ngrok from "ngrok";
 
-import {envConfig} from "@/config";
-import {appStrings} from "@/constants";
+import { envConfig } from "@/config";
+import { strings } from "@/constants";
 
 const port = envConfig.port;
-const {exposingApp, ngrokError} = appStrings;
+const { exposingApp, ngrokError } = strings;
 
-const exposeApp = async () => {
+async function exposeApp() {
   try {
     const response = await ngrok.connect({
       addr: port,
@@ -17,6 +17,6 @@ const exposeApp = async () => {
   } catch (err) {
     console.error(ngrokError, err);
   }
-};
+}
 
-export {exposeApp};
+export { exposeApp }; */

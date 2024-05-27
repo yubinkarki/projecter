@@ -3,8 +3,8 @@ import { Response } from "express";
 import { success } from "@/utils";
 import { CookieType, UserSchemaInterface } from "@/constants";
 
-const sendToken = (user: UserSchemaInterface, statusCode: number, res: Response): Response => {
-  const token: string = user.getJWTToken();
+function sendToken(user: UserSchemaInterface, statusCode: number, res: Response): Response {
+  const token: string = user.getToken();
 
   const options = { httpOnly: true };
 
@@ -15,6 +15,6 @@ const sendToken = (user: UserSchemaInterface, statusCode: number, res: Response)
   };
 
   return success(res, statusCode, token, cookieData);
-};
+}
 
 export default sendToken;

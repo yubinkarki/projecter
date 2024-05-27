@@ -1,39 +1,33 @@
 import jwt from "jsonwebtoken";
-import { Response, Request, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 
-import { envConfig } from "@/config";
+import { envConfig, logger } from "@/config";
+import { DecodedUserType, AuthenticatedUserInterface } from "@/constants";
 
-interface JwtPayload {
-  userId: string;
-}
-
-interface AuthenticatedRequest extends Request {
-  user?: string | JwtPayload;
-}
-
-const authentication = (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
-  const tokenHeader = req.headers.authorization;
+function authentication(req: AuthenticatedUserInterface, res: Response, next: NextFunction): void {
+  const tokenHeader: string | undefined = req.headers.authorization;
 
   if (!tokenHeader) {
-    res.status(401).json({ status: false, msg: "Authorization header is missing" });
+    res.status(401).send({ status: false, msg: "Authorization header is missing" });
     return;
   }
 
-  const token = tokenHeader.split(" ")[1];
+  const token: string = tokenHeader.split(" ")[1];
 
   if (!token) {
-    res.status(401).json({ status: false, msg: "Bearer token is missing" });
+    res.status(401).send({ status: false, msg: "Bearer token is missing" });
     return;
   }
 
   try {
-    const decoded = jwt.verify(token, envConfig.jwtKey) as JwtPayload;
+    const decoded = jwt.verify(token, envConfig.jwtKey) as DecodedUserType;
     req.user = decoded;
     next();
-  } catch (err) {
-    res.status(403).json({ status: false, msg: "Invalid or expired token" });
+  } catch (e) {
+    logger.error("Error in jwt verification:", e);
+    res.status(403).send({ status: false, msg: "Invalid or expired token" });
     return;
   }
-};
+}
 
 export default authentication;
