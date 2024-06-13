@@ -1,5 +1,5 @@
 import TaskModel from "./TaskModel";
+import UserModel from "./UserModel";
 import projectModel from "./ProjectModel";
-import UserModel, { UserSchema } from "./UserModel";
 
-export { UserModel, UserSchema, projectModel, TaskModel };
+export { UserModel, projectModel, TaskModel };

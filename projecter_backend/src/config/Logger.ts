@@ -1,13 +1,11 @@
 import path from "path";
 import winston from "winston";
 
-import { envConfig } from "./EnvConfig";
 import { emojis, strings } from "@/constants";
 
-const { development, errorLogFile, customLogDir, dateFormat, rootDir } = strings;
+const { errorLogFile, customLogDir, dateFormat, rootDir } = strings;
 
 const logsDir: string = path.join(rootDir, customLogDir);
-const isDevelopment: boolean = (envConfig.nodeEnv || development) === development;
 
 const levels: winston.config.AbstractConfigSetLevels = {
   warn: 1,
@@ -37,7 +35,7 @@ export const logger: winston.Logger = winston.createLogger({
   transports: [
     new winston.transports.Console({
       format: format,
-      level: isDevelopment ? "debug" : "warn",
+      level: "debug",
     }),
     new winston.transports.File({
       level: "warn",

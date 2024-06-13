@@ -1,3 +1,3 @@
-import {connectToDb} from "./Connection";
+import { connectToDb } from "./Connection";
 
-export {connectToDb};
+export { connectToDb };
