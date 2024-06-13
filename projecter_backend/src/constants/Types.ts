@@ -1,21 +1,12 @@
 import { ObjectId } from "mongoose";
 import { Secret } from "jsonwebtoken";
 
-import { RoleEnum, DesignationEnum } from "@/constants";
+import { RoleEnum } from "@/constants";
 
 export type CookieType = {
   cookie: any;
   name: string;
   options: Record<string, any>;
-};
-
-export type NewUserFormType = {
-  email: string;
-  lastName: Date;
-  firstName: Date;
-  password: string;
-  phoneNumber: string;
-  designation: DesignationEnum;
 };
 
 export type DecodedUserType = {

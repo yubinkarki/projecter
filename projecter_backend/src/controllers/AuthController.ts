@@ -1,26 +1,14 @@
-import { pick } from "lodash";
 import { compare } from "bcrypt";
 import { Response, Request } from "express";
 
 import { logger } from "@/config";
 import { sendToken } from "@/utils";
 import { UserModel } from "@/models";
-import { NewUserFormType, UserSchemaInterface, StatusEnum } from "@/constants";
-
-const pickReqUserData: (keyof NewUserFormType)[] = [
-  "email",
-  "password",
-  "lastName",
-  "firstName",
-  "phoneNumber",
-  "designation",
-];
+import { UserSchemaInterface, StatusEnum } from "@/constants";
 
 export async function signup(req: Request, res: Response) {
   try {
-    const userData: NewUserFormType = pick(req.body, pickReqUserData);
-
-    const result = await UserModel.create(userData);
+    const result = await UserModel.create(req.body);
 
     if (!result) {
       res.status(500).json({ status: false, msg: "Failed to create user" });

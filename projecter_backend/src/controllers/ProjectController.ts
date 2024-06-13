@@ -1,21 +1,11 @@
 import { Response, Request } from "express";
 
-const projectModel = require("../models/ProjectModel");
-const _ = require("lodash");
+import { projectModel } from "@/models";
 
 // Create new project - by admin.
 export async function addProject(req: Request, res: Response) {
   try {
-    let projectData = _.pick(req.body, [
-      "projectName",
-      "projectDescription",
-      "projectStatus",
-      "projectDeadline",
-      "projectManager",
-    ]);
-
-    req.body.projectManager = req.body.id;
-    await projectModel.create(projectData);
+    await projectModel.create(req.body);
 
     return res.status(202).json({
       status: true,
@@ -114,6 +104,7 @@ export async function getAllProjects(_: Request, res: Response) {
 export async function addProjectMember(req: Request, res: Response) {
   try {
     const { userId, projectId } = req.body;
+
     const checkExistingMember = await projectModel.findOne({ projectId });
 
     let checkUser;

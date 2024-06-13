@@ -1,12 +1,11 @@
-const _ = require("lodash");
 import { Response, Request } from "express";
 
-import { TaskModel, projectModel, UserModel } from "@/models";
+import { TaskModel, projectModel } from "@/models";
 
-// Create task.
+// Create a task.
 export async function createTask(req: Request, res: Response) {
   try {
-    const task = await TaskModel.create(_.pick(req.body, ["taskName", "taskDeadline", "taskOwner", "taskProject"]));
+    const task = await TaskModel.create(req.body);
 
     return res.status(200).json({ status: true, msg: "Task created successfully", task });
   } catch (err) {
