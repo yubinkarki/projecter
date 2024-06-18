@@ -34,7 +34,7 @@ Thumbs.db
 *.seed
 custom_logs
 
-# linting and formatting
+# Linting and formatting
 eslintcache/.
 
 # Type coverage reports
@@ -45,8 +45,8 @@ eslintcache/.
 *.jsx
 *.d.ts
 
-# dotenv environment variables
+# Environment variables
 .env
-.env.development
 .env.staging
 .env.production
+.env.development
