@@ -1,5 +1,5 @@
 import { strings, emojis } from "./AppStrings";
-import { RoleEnum, DesignationEnum, StatusEnum } from "./Enums";
+import { RoleEnum, DesignationEnum, StatusEnum, SuccessMessageEnum, ErrorMessageEnum } from "./Enums";
 import {
   TaskSchemaInterface,
   UserSchemaInterface,
@@ -9,28 +9,32 @@ import {
 import {
   CookieType,
   EnvConfigType,
-  NewUserFormType,
   DecodedUserType,
   PackageJsonType,
   SuccessResponseType,
+  FailureResponseType,
   UserSignedDetailsType,
+  MongooseValidationErrorType,
 } from "./Types";
 
 export {
   emojis,
   strings,
   RoleEnum,
-  CookieType,
   StatusEnum,
+  CookieType,
   EnvConfigType,
-  DesignationEnum,
-  NewUserFormType,
   DecodedUserType,
   PackageJsonType,
+  DesignationEnum,
+  ErrorMessageEnum,
+  SuccessMessageEnum,
   SuccessResponseType,
   UserSchemaInterface,
+  FailureResponseType,
   TaskSchemaInterface,
   UserSignedDetailsType,
   ProjectSchemaInterface,
   AuthenticatedUserInterface,
+  MongooseValidationErrorType,
 };

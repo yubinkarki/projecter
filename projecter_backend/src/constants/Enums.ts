@@ -32,3 +32,15 @@ export enum StatusEnum {
   validationException = 422,
   internalServerError = 500,
 }
+
+export enum SuccessMessageEnum {
+  awesome = "Awesome",
+  userCreated = "User created successfully",
+}
+
+export enum ErrorMessageEnum {
+  generic = "Generic",
+  userNotCreated = "Could not create user",
+  mongooseValidation = "Mongoose Validation Error",
+  genericMessage = "An internal server error occurred",
+}
