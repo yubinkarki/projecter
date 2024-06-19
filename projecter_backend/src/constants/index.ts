@@ -1,5 +1,12 @@
 import { strings, emojis } from "./AppStrings";
-import { RoleEnum, DesignationEnum, StatusEnum, SuccessMessageEnum, ErrorMessageEnum } from "./Enums";
+import {
+  RoleEnum,
+  StatusEnum,
+  DesignationEnum,
+  ErrorMessageEnum,
+  ErrorCategoryEnum,
+  SuccessMessageEnum,
+} from "./Enums";
 import {
   TaskSchemaInterface,
   UserSchemaInterface,
@@ -28,6 +35,7 @@ export {
   PackageJsonType,
   DesignationEnum,
   ErrorMessageEnum,
+  ErrorCategoryEnum,
   SuccessMessageEnum,
   SuccessResponseType,
   UserSchemaInterface,
