@@ -34,8 +34,8 @@ export interface UserSchemaInterface extends Document {
   firstName: string;
   _id: Types.ObjectId;
   designation: DesignationEnum;
-  previousProject: Types.ObjectId[];
-  currentProject?: Types.ObjectId | null;
+  currentProject: Types.ObjectId | null;
+  previousProject: Types.ObjectId[] | [];
   email: { type: string; unique: { value: true } };
   phoneNumber: { type: string; unique: { value: true } };
 

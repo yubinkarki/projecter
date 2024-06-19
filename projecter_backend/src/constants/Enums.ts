@@ -39,8 +39,12 @@ export enum SuccessMessageEnum {
 }
 
 export enum ErrorMessageEnum {
-  generic = "Generic",
+  notFound = "Not found",
+  server = "Server error",
+  wrong = "Something went wrong",
+  mongooseGeneric = "Mongoose error",
+  mongooseCast = "Mongoose case error",
   userNotCreated = "Could not create user",
-  mongooseValidation = "Mongoose Validation Error",
+  mongooseValidation = "Mongoose validation error",
   genericMessage = "An internal server error occurred",
 }

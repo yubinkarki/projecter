@@ -3,6 +3,8 @@ import { Secret } from "jsonwebtoken";
 
 import { RoleEnum } from "@/constants";
 
+type MESSAGE_TYPE = "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
+
 export type CookieType = {
   cookie: any;
   name: string;
@@ -20,9 +22,15 @@ export type DecodedUserType = {
 export type SuccessResponseType = {
   token?: string;
   success: boolean;
-  message?: string;
-  data?: Record<string, any>;
-  type: "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
+  messageType: MESSAGE_TYPE;
+  message?: string | Record<string, any>;
+};
+
+export type FailureResponseType = {
+  success: boolean;
+  errorCode?: number;
+  errorCategory: string;
+  errorMessage: string | Record<string, any> | unknown;
 };
 
 export type PackageJsonType = {
@@ -43,3 +51,25 @@ export type EnvConfigType = {
   databaseUrl: string | undefined;
   jwtExpiryDuration: string | undefined;
 };
+
+export type MongooseValidationErrorType = {
+  name: string;
+  message: string;
+  errors: Record<string, any>;
+};
+
+// export type UserCreatedType = Document & {
+//   // _id: ObjectId;
+//   // createdAt: Date;
+//   // updatedAt: Date;
+
+//   role: string;
+//   email: string;
+//   lastName: string;
+//   password: string;
+//   firstName: string;
+//   designation: string;
+//   phoneNumber: string;
+//   // currentProject: ObjectId | null;
+//   // previousProjects: ObjectId[] | [];
+// };
