@@ -24,7 +24,7 @@ const format: winston.Logform.Format = winston.format.combine(
     const { timestamp, level } = info;
     const { point, description, filename }: LoggerMessageType = info.message;
 
-    const emoji = emojis[level] || emojis["fallback"];
+    const emoji = emojis[level] ?? emojis["fallback"];
     const filepath = path.basename(filename ?? __filename);
 
     return `${emoji} ${timestamp} - ${level.toUpperCase()} - ${filepath} - ${point} - ${description}`;
