@@ -58,6 +58,8 @@ export type MongooseValidationErrorType = {
   errors: Record<string, any>;
 };
 
+export type LoggerMessageType = { point: string; description: string; filename: string };
+
 // export type UserCreatedType = Document & {
 //   // _id: ObjectId;
 //   // createdAt: Date;
