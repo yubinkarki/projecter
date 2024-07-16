@@ -1,7 +1,7 @@
 import path from "path";
 import winston from "winston";
 
-import { emojis, strings } from "@/constants";
+import { emojis, strings, LoggerMessageType } from "@/constants";
 
 const { errorLogFile, customLogDir, dateFormat, rootDir } = strings;
 
@@ -21,12 +21,13 @@ const format: winston.Logform.Format = winston.format.combine(
   winston.format.errors({ stack: true }),
   winston.format.timestamp({ format: dateFormat }),
   winston.format.printf((info) => {
-    const message = info.message;
-    const timestamp = info.timestamp;
-    const level = info.level.toUpperCase();
-    const emoji = emojis[info.level] || emojis["fallback"];
+    const { timestamp, level } = info;
+    const { point, description, filename }: LoggerMessageType = info.message;
 
-    return `${timestamp} - ${emoji} ${level} - ${message}`;
+    const emoji = emojis[level] || emojis["fallback"];
+    const filepath = path.basename(filename ?? __filename);
+
+    return `${emoji} ${timestamp} - ${level.toUpperCase()} - ${filepath} - ${point} - ${description}`;
   })
 );
 
