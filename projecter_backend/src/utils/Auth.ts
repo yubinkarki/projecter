@@ -24,7 +24,7 @@ function authentication(req: AuthenticatedUserInterface, res: Response, next: Ne
     req.user = decoded;
     next();
   } catch (e) {
-    logger.error("Error in jwt verification:", e);
+    logger.error({ filename: __filename, e, point: "authentication" });
     res.status(403).send({ status: false, msg: "Invalid or expired token" });
     return;
   }

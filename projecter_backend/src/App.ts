@@ -19,12 +19,20 @@ app.use(requestLogger);
 initializeRoutes(app);
 
 function appListenLog(): void {
-  logger.info(`${strings.serverStartSuccess} at port ${envConfig.port} | ${envConfig.nodeEnv} mode`);
+  logger.info({
+    point: "appListenLog",
+    filename: __filename,
+    description: `${strings.serverStartSuccess} at port ${envConfig.port} | ${envConfig.nodeEnv} mode`,
+  });
 }
 
 try {
   connectToDb();
   app.listen(envConfig.port, appListenLog);
 } catch (e: unknown) {
-  logger.error(`${strings.serverStartFailure}:`, e);
+  logger.error({
+    point: "Main",
+    filename: __filename,
+    description: `${strings.serverStartFailure} - ${e}`,
+  });
 }

@@ -19,8 +19,9 @@ mongoose.set("strictQuery", false);
 export function connectToDb(): void {
   mongoose
     .connect(envConfig.databaseUrl || cannotFindDbUrl)
-    .then(() => logger.info(dbConnectionSuccess))
+    .then(() => logger.info({ filename: __filename, description: dbConnectionSuccess, point: "connectToDb" }))
     .catch((e: Error) => {
+      logger.error({ filename: __filename, description: e, point: "connectToDb" });
       throw new Error(`${dbConnectionFail} -> ${e}`);
     });
 }
